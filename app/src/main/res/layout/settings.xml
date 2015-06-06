@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+
+    <include layout="@layout/back_head"></include>
+    <LinearLayout
+        android:layout_marginTop="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current_psd"
+            android:layout_marginLeft="30dp"
+            android:textAppearance="@style/text_style" />
+
+        <EditText
+            android:id="@+id/current_psd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_psd"
+            android:layout_marginLeft="30dp"
+            android:textAppearance="@style/text_style" />
+
+        <EditText
+            android:id="@+id/new_psd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_marginTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verify_psd"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="@style/text_style" />
+
+    <EditText
+        android:id="@+id/verify_psd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:inputType="textPassword" />
+
+</LinearLayout>
+    <Button
+        android:id="@+id/bt_post"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提  交"
+        android:textAppearance="@style/text_style"
+        android:layout_gravity="center_horizontal"
+        />
+</LinearLayout>

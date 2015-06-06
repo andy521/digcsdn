@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    >
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@mipmap/ic_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:inputType="textCapWords"
+        android:imeOptions="actionSearch"
+        android:title="search" />
+
+    <item
+        android:id="@+id/add_files"
+        android:orderInCategory="100"
+        android:title="@string/add_files"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/add_task"
+        android:orderInCategory="100"
+        android:title="@string/add_task"
+        app:showAsAction="never"/>
+
+    <!--ifRoom表示当actionbar有空间时显示，否则隐藏在最右侧的overFlow中-->
+
+</menu>
