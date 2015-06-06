@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,10 +20,9 @@ import android.widget.Toast;
 
 import com.bob.xtb.R;
 import com.bob.xtb.adapter.TabPagerAdapter;
-import com.bob.xtb.fragment.AddFileFragment;
-import com.bob.xtb.fragment.FerryFragment;
+import com.bob.xtb.fragment.BlogFragment;
 import com.bob.xtb.fragment.LeftMenuFragment;
-import com.bob.xtb.fragment.MyResourceFragment;
+import com.viewpagerindicator.TabPageIndicator;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
 import java.util.ArrayList;
@@ -32,18 +30,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private final int COLOR_NORMAL = Color.LTGRAY;
-    private final int COLOR_SELECTED = Color.WHITE;
+public class MainActivity extends AppCompatActivity {
     //这里不可以直接引用xml里的颜色值，而需要根据RGB或者ARGB多个参数来构造
 
     private static boolean isExit = false;
     Timer tExit = null;
     private ViewPager pager;//v4包下的一个控件，即就是一个可以左右滑动切换的东东
     private TabPagerAdapter tabAdapter;//和ListView一个道理，集合——>适配器——>控件
-    private UnderlinePageIndicator indicator;
-    private TextView tvAdd, tvFerry, tvMine;
-    public List<Fragment> fragments;
+    private TabPageIndicator indicator;
 
     private DrawerLayout drawerLayout;
     private LeftMenuFragment leftMenuFragment;
@@ -58,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         initWidget();//集中实例化这几个控件
         initEvent();
 
+        //加载侧滑菜单
         getSupportFragmentManager().beginTransaction().add(R.id.left_menu_container, leftMenuFragment).commit();
 
         /**
@@ -65,45 +60,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
          * 设置setOffscreenPageLimit()来达到多个页面缓存  ps:可以监听Fragment的生命周期来
          * 达到调试目的
          */
-        pager.setOffscreenPageLimit(fragments.size());//设置最多可以加载的页数== 总页数
+        pager.setOffscreenPageLimit(1);//设置最多可以加载的页数== 总页数,这里就缓存1页？？？
         pager.setAdapter(tabAdapter);
 
         indicator.setViewPager(pager);
-        indicator.setFades(false);//设置指示条不消失
-        indicator.setSelectedColor(COLOR_SELECTED);//设置指示条颜色为绿色,和字体选中颜色一致
-
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {//为ViewPager添加监听以随其动作更新ui，这点不同于BaseAdapter
-            //主要原因在于我们需要将ViewPager和底部按钮进行联动处理，否则也用不着监听了
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            public void onPageSelected(int position) {
-                resetTextColor();//一定要在修改对应选中的按钮状态时先重置所有按钮，否则会让前边的效果影响后边
-                switch (position) {
-                    case 0:
-                        tvAdd.setTextColor(COLOR_SELECTED);
-                        break;
-                    case 1:
-                        tvFerry.setTextColor(COLOR_SELECTED);
-                        break;
-                    case 2:
-                        tvMine.setTextColor(COLOR_SELECTED);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
     }
 
     private void initWidget() {
-        fragments = new ArrayList<>();
         leftMenuFragment = new LeftMenuFragment();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);//初始化抽屉布局
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);//初始化toolBar
@@ -115,53 +78,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         mToggle = new ActionBarDrawerToggle(this,
                 drawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
 
-        tvAdd = (TextView) findViewById(R.id.tv_add);//indicator的三个textView标记
-        tvAdd.setTextColor(COLOR_SELECTED);
-        tvFerry = (TextView) findViewById(R.id.tv_ferry);
-        tvMine = (TextView) findViewById(R.id.tv_mine);
-        indicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
+
+        indicator = (TabPageIndicator) findViewById(R.id.indicator);
 
         pager = (ViewPager) findViewById(R.id.pager);
-        tabAdapter = new TabPagerAdapter(getSupportFragmentManager(), fragments);
+        tabAdapter = new TabPagerAdapter(getSupportFragmentManager());
 
-        AddFileFragment addFile = new AddFileFragment();
-        FerryFragment ferry = new FerryFragment();
-        MyResourceFragment resource = new MyResourceFragment();
-        fragments.add(addFile);
-        fragments.add(ferry);
-        fragments.add(resource);
     }
 
     private void initEvent() {
-        tvAdd.setOnClickListener(this);
-        tvFerry.setOnClickListener(this);
-        tvMine.setOnClickListener(this);
-
         mToggle.syncState();//用toggle同步监听drawerLayout
         drawerLayout.setDrawerListener(mToggle);
-    }
-
-    private void resetTextColor() {//重置所有的颜色
-        tvAdd.setTextColor(COLOR_NORMAL);
-        tvFerry.setTextColor(COLOR_NORMAL);
-        tvMine.setTextColor(COLOR_NORMAL);
-    }
-
-    @Override
-    public void onClick(View view) {//点击底部按钮对ViewPager进行切换
-        int currentIndex = 0;
-        switch (view.getId()) {//只需要选择被选中页，底部按钮会自动在onPageSelected中更新
-            case R.id.tv_add:
-                currentIndex = 0;
-                break;
-            case R.id.tv_ferry:
-                currentIndex = 1;
-                break;
-            case R.id.tv_mine:
-                currentIndex = 2;
-                break;
-        }
-        indicator.setCurrentItem(currentIndex);//点击后切换当前选中page，或者说是fragment
     }
 
 

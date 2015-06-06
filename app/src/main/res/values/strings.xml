@@ -21,16 +21,6 @@
     <string name="res_type">资源类型</string>
     
     <string name="logout">注销用户</string>
-    <string name="information">\t新太博远程控制端，为辽宁科技大学计算机122级学生历时2个月之作，中间可能会有一些不足，本项目由作者长期有效维护。</string>
+    <string name="information">\t专为个人开发的博客客户端，主要是为了随身查看博客方便，本项目由作者长期有效维护。</string>
 
-    <string name="login_account">操作员账户 :</string>
-    <string name="login_psd">密\t\t\t\t\t\t\t\t\t码 :</string>
-
-    <string name="current_psd">当前密码 :</string>
-    <string name="new_psd">更新密码 :</string>
-    <string name="verify_psd">确认密码 :</string>
-
-
-    <string name="add_files">添加网络文件</string>
-    <string name="add_task">添加新的任务</string>
 </resources>

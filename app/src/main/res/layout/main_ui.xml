@@ -11,13 +11,12 @@
         android:background="?attr/colorPrimary"></android.support.v7.widget.Toolbar>
     <!--这个LinearLayout是用来存放tabs的,?attr表示对所有资源文件进行搜索引用-->
 
-    <include layout="@layout/top_bar"></include>
 
-    <com.viewpagerindicator.UnderlinePageIndicator
+    <com.viewpagerindicator.TabPageIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/sky_blue"></com.viewpagerindicator.UnderlinePageIndicator>
+        android:layout_height="wrap_content"
+        android:background="@color/sky_blue"></com.viewpagerindicator.TabPageIndicator>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

@@ -42,39 +42,4 @@
         android:layout_height="wrap_content"
         android:divider="@null"></ListView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
-
-        <LinearLayout
-            android:id="@+id/ll_logout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/list_selector"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/logout" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="20.0dip"
-                android:text="@string/logout"
-                android:textAppearance="@style/text_menu" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dip"
-            android:layout_above="@id/ll_logout"
-            android:background="@color/light_gray"></View>
-        <!--我是快乐的分割线,可惜只能放在ll下边-->
-    </RelativeLayout>
 </LinearLayout>

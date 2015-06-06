@@ -21,14 +21,5 @@ public class DBInfo {
         public static String USER_TABLE_CREATE = "CREATE TABLE IF NOT EXITS"
                 + USER_TABLE_NAME + "(_id INTEGER PRIMARY KEY, userCount TEXT, userPsd TEXT )";
 
-        public static String TASK_TABLE_NAME = "Tasks";
-        public static String TASK_TABLE_CREATE = "CREATE TABLE IF NOT EXITS"
-                + TASK_TABLE_NAME + "(_id INTEGER PRIMARY KEY, taskId TEXT, " +
-                "taskName TEXT, taskDesc TEXT, taskPriority TEXT, taskType TEXT, isTimed TEXT, createTime TEXT)";
-
-        public static String RES_TABLE_NAME = "resources";
-        public static String RES_TABLE_CREATE = "CREATE TABLE IF NOT EXITS"
-                + RES_TABLE_NAME + "(_id INTEGER PRIMARY KEY, resId TEXT, " +
-                "resName TEXT, resType TEXT, resFrom TEXT, fromPath TEXT, resTo TEXT, toPath TEXT, createTime TEXT)";
     }
 }

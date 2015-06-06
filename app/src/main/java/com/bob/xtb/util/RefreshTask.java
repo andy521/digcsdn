@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
 
-import com.bob.xtb.bean.Resource;
-import com.bob.xtb.bean.Task;
 import com.bob.xtb.interfaces.IAdapter;
 import com.bob.xtb.view.LoadMoreListView;
 
@@ -33,23 +31,7 @@ public class RefreshTask extends AsyncTask<String, Void, Integer> {//分别是�
         this.listView = listView;
 
         temp= new ArrayList();
-        if (type.equals("task")) {//添加任务
-            for (int i = 0; i < 12; i++) {//模拟为从服务器获取到的数据
-                Task task = new Task();
-                task.setTaskId(i+"");
-                task.setTaskName("Task" + i);
-                task.setTaskDesc("Desc"+i);
-                temp.add(task);
-            }
-        }else{//添加资源
-            for (int i = 0; i < 12; i++) {
-                Resource resource = new Resource();
-                resource.setResId(i+"");
-                resource.setResName("Res"+i);
-                resource.setResType("Type"+i);
-                temp.add(resource);
-            }
-        }
+
     }
 
     @Override

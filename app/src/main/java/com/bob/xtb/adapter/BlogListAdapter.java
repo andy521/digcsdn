@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bob.xtb.R;
-import com.bob.xtb.bean.Resource;
 import com.bob.xtb.interfaces.IAdapter;
 
 import java.util.ArrayList;
@@ -16,13 +15,13 @@ import java.util.List;
 /**
  * Created by bob on 15-5-10.
  */
-public class ResourceAdapter extends IAdapter {
+public class BlogListAdapter extends IAdapter {
     private ViewHolder holder ;//视图容器
     private LayoutInflater layoutInflater;//布局加载器
     private Context context;
     private List list;//资源列表
 
-    public ResourceAdapter(Context context){
+    public BlogListAdapter(Context context){
         super();
         this.context= context;
         list= new ArrayList();
@@ -75,7 +74,6 @@ public class ResourceAdapter extends IAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //灵感来自《第一行代码》
-        Resource task= (Resource)list.get(position);
         if (convertView == null) {//空说明第一次加载当前条目
             holder = new ViewHolder();//构建布局容器
             convertView = layoutInflater.inflate(R.layout.list_item, null);
@@ -87,9 +85,7 @@ public class ResourceAdapter extends IAdapter {
             holder = (ViewHolder) convertView.getTag();//下次就可以直接获取容器了
             //避免反复去资源文件中加载widget
         }
-        holder.resourceId.setText(task.getResId());
-        holder.resourceName.setText(task.getResName());
-        holder.resourceType.setText(task.getResType());
+
         return convertView;
     }
 

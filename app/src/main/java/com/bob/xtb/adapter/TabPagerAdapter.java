@@ -4,24 +4,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.bob.xtb.fragment.BlogFragment;
+
 import java.util.List;
 
 /**
  * Created by bob on 15-5-10.
  */
-public class TabPagerAdapter extends FragmentPagerAdapter{
-    private List<Fragment>fragments;
-    public TabPagerAdapter(FragmentManager fm, List<Fragment>fragments){
+public class TabPagerAdapter extends FragmentPagerAdapter {
+
+    public static final String[] TITLE = new String[] { "首页", "Android启蒙",
+            "Java进阶", "数据结构与算法", "Windows", "Mac", "Linux", "考研之计科", "走进摄影","日语学习" };
+    public TabPagerAdapter(FragmentManager fm){
         super(fm);
-        this.fragments= fragments;
     }
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);//返回需要显示的控件
+        switch (position){
+            case 0: break;
+            default:break;
+        }
+        return new BlogFragment(position);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return TITLE[position % TITLE.length].toUpperCase();
     }
 
     @Override
     public int getCount() {//获取数据集大小
-        return fragments.size();
+        return TITLE.length;
     }
 }
