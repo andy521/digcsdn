@@ -6,12 +6,31 @@
         <item name="colorPrimary">@color/sky_blue</item>
         <item name="colorPrimaryDark">@color/deep_blue</item>
         <item name="colorAccent">@color/material_deep_teal_200</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
 
     <style name="LogoTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>
     </style>
+
+
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/tab_indicator</item>
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:dividerPadding">8dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="Widget">
+        <item name="android:textColor">@drawable/tabtext_selector</item>
+    </style>
+
 
     <!--利用style双标签来设置风格，在这里，style即就是对应的内部类-->
     <style name="text_style">
@@ -21,10 +40,6 @@
         <item name="android:textColor">#ff060606</item>
     </style>
 
-    <style name="theme_full_screen" parent="Theme.AppCompat.NoActionBar">
-        <!--全屏主题-->
-        <item name="android:windowFullscreen">true</item>
-    </style>
 
     <style name="text_indicator" >
         <item name="android:textSize">19sp</item>

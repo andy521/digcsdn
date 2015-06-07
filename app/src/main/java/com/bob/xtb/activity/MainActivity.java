@@ -1,8 +1,6 @@
 package com.bob.xtb.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,20 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bob.xtb.R;
 import com.bob.xtb.adapter.TabPagerAdapter;
-import com.bob.xtb.fragment.BlogFragment;
 import com.bob.xtb.fragment.LeftMenuFragment;
 import com.viewpagerindicator.TabPageIndicator;
-import com.viewpagerindicator.UnderlinePageIndicator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 

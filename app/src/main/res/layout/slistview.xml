@@ -10,9 +10,9 @@
 
         <com.bob.xtb.view.LoadMoreListView
             android:id="@+id/list_view"
+            
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@mipmap/horizontal_divider_line"
             ></com.bob.xtb.view.LoadMoreListView>
     </android.support.v4.widget.SwipeRefreshLayout>
 

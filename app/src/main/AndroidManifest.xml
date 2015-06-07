@@ -19,13 +19,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".activity.LoginActivity"></activity>
 
         <activity android:name=".activity.MainActivity"></activity>
 
         <activity android:name=".activity.AboutActivity"></activity>
-
-        <activity android:name=".activity.ChangeUserActivity"></activity>
 
         <activity android:name=".activity.SettingsActivity"></activity>
 
