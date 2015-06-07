@@ -10,10 +10,10 @@
 
         <com.bob.xtb.view.LoadMoreListView
             android:id="@+id/list_view"
-            
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             ></com.bob.xtb.view.LoadMoreListView>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

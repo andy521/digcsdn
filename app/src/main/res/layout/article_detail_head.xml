@@ -14,25 +14,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:background="@drawable/back_selector" />
-
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
             android:src="@mipmap/vertical_divider_line" />
 
-
-        <TextView
-            android:id="@+id/tv_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
-
     </LinearLayout>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+    <!--可以使用一个权重为1的控件来填充布局-->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/comment_selector" />
+
+
 </LinearLayout>

@@ -76,7 +76,7 @@ public class BlogListAdapter extends IAdapter {
         //灵感来自《第一行代码》
         if (convertView == null) {//空说明第一次加载当前条目
             holder = new ViewHolder();//构建布局容器
-            convertView = layoutInflater.inflate(R.layout.list_item, null);
+            convertView = layoutInflater.inflate(R.layout.blog_list_item, null);
             holder.resourceId = (TextView) convertView.findViewById(R.id.tv_id);
             holder.resourceName = (TextView) convertView.findViewById(R.id.tv_name);
             holder.resourceType = (TextView) convertView.findViewById(R.id.tv_desc_type);
