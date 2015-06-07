@@ -16,6 +16,8 @@
         >
         <include layout="@layout/slistview"></include>
     </RelativeLayout>
+    <!--博客内容使用listView是何居心？？？-->
+
     <ProgressBar
         android:id="@+id/pro_blog_content"
         android:layout_width="wrap_content"
