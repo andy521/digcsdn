@@ -77,9 +77,6 @@ public class BlogListAdapter extends IAdapter {
         if (convertView == null) {//空说明第一次加载当前条目
             holder = new ViewHolder();//构建布局容器
             convertView = layoutInflater.inflate(R.layout.blog_list_item, null);
-            holder.resourceId = (TextView) convertView.findViewById(R.id.tv_id);
-            holder.resourceName = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.resourceType = (TextView) convertView.findViewById(R.id.tv_desc_type);
             convertView.setTag(holder);//将布局容器存入当前布局对象中
         } else {
             holder = (ViewHolder) convertView.getTag();//下次就可以直接获取容器了

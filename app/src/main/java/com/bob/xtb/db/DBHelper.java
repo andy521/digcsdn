@@ -16,14 +16,14 @@ public class DBHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL(DBInfo.Table.USER_TABLE_CREATE);//建表操作
+		db.execSQL(DBInfo.Table.BLOG_TABLE_CREATE);//建表操作
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stubhe
 		Log.e("Tag", "delete DB");//delete the old table before onUpgrade the database
-		db.execSQL("DROP TABLE IF EXISTS " + DBInfo.Table.USER_TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + DBInfo.Table.BLOG_TABLE_NAME);
 		onCreate(db);// 创建新表
 	}
 

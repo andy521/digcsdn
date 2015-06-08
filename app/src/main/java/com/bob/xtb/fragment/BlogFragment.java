@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.bob.xtb.R;
 import com.bob.xtb.adapter.BlogListAdapter;
+import com.bob.xtb.db.BlogService;
 import com.bob.xtb.util.RefreshTask;
 import com.bob.xtb.view.LoadMoreListView;
 
@@ -17,11 +18,15 @@ import com.bob.xtb.view.LoadMoreListView;
  * Created by bob on 15-4-21.
  */
 public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener {
-    private int blogType;
+    private int blogType = 0;//默认的是首页
+    private boolean isLoad = false;//是否正在处于加载
 
+    private View noBlogLayout;//无数据显示
     private SwipeRefreshLayout swipeLayout;  //系统带的下拉刷新控件
+    private LoadMoreListView blogListView;  //具有上拉加载的ListView
     private BlogListAdapter adapter; //数据适配器
-    private LoadMoreListView listView;  //具有上拉加载的ListView
+    private BlogService blogService;//博客数据库服务
+
 
     public BlogFragment(int blogType) {
         this.blogType = blogType;
@@ -43,23 +48,23 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         // set style for swipeRefreshLayout
         swipeLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
                 android.R.color.holo_blue_bright);
-        listView = (LoadMoreListView) getView().findViewById(R.id.list_view);
-        listView.setOnLoadMoreListener(this);//为listView添加加载监听
+        blogListView = (LoadMoreListView) getView().findViewById(R.id.list_view);
+        blogListView.setOnLoadMoreListener(this);//为listView添加加载监听
         adapter = new BlogListAdapter(getActivity());
-        listView.setAdapter(adapter);//设置数据适配器
+        blogListView.setAdapter(adapter);//设置数据适配器
 
     }
 
 
     @Override
     public void onRefresh() {//刷新监听
-        new RefreshTask(getActivity(), "res", adapter, swipeLayout, listView).
+        new RefreshTask(getActivity(), "res", adapter, swipeLayout, blogListView).
                 execute("www.baidu.com", "refresh");
     }
 
     @Override
     public void onLoadMore() {//加载监听
-        new RefreshTask(getActivity(), "res", adapter, swipeLayout, listView).
+        new RefreshTask(getActivity(), "res", adapter, swipeLayout, blogListView).
                 execute("www.udiab.com", "load");
     }
 }

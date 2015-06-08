@@ -1,13 +1,8 @@
 package com.bob.xtb.fragment;
 
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +19,7 @@ import com.bob.xtb.adapter.MenuListAdapter;
 /**
  * Created by bob on 15-5-17.
  */
-public class LeftMenuFragment extends Fragment{
+public class LeftMenuFragment extends Fragment {
 
     private LinearLayout llLogout;
     private ListView menuListView;
