@@ -60,7 +60,7 @@ public class RefreshTask extends AsyncTask<String, Void, Integer> {//分别是�
             case Constants.TASK_RESULT_CODE.ERROR:
                 Toast.makeText(context, "网络信号不佳", Toast.LENGTH_SHORT);
                 swipeLayout.setRefreshing(false);
-                listView.setCanLoadMore(false);//设置为不可刷新状态
+                listView.setCanLoadMore(false);//设置为不可加载状态
                 break;
             case Constants.TASK_RESULT_CODE.REFRESH:
                 listView.setCanLoadMore(adapter.getCount() < 45);

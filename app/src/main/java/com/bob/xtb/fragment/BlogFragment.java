@@ -1,18 +1,25 @@
 package com.bob.xtb.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.bob.xtb.R;
+import com.bob.xtb.activity.BlogDetailActivity;
 import com.bob.xtb.adapter.BlogListAdapter;
+import com.bob.xtb.bean.BlogItem;
+import com.bob.xtb.bean.Page;
 import com.bob.xtb.db.BlogService;
 import com.bob.xtb.util.RefreshTask;
 import com.bob.xtb.view.LoadMoreListView;
+
+import java.util.List;
 
 /**
  * Created by bob on 15-4-21.
@@ -26,10 +33,17 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private LoadMoreListView blogListView;  //具有上拉加载的ListView
     private BlogListAdapter adapter; //数据适配器
     private BlogService blogService;//博客数据库服务
+    private Page page;
 
 
     public BlogFragment(int blogType) {
         this.blogType = blogType;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
     }
 
     @Override
@@ -40,18 +54,46 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initWidget();//初始化控件
 
+        if (!isLoad){//当前没有加载，就开始加载(先加载一次数据库内容，然后请求网络刷新)
+            isLoad= true;
+            List<BlogItem> blogs= blogService.loadBlog(blogType);
+            adapter.setList(blogs);//为ListView设置数据
+            adapter.notifyDataSetChanged();//通知刷新数据
+            onRefresh();//开启网络刷新
+        }
+    }
+
+    private void init() {
+        blogService= BlogService.getInstance(getActivity());
+        adapter= new BlogListAdapter(getActivity());
+        page= new Page();
+        page.setPageStart();//从第二页开始
+    }
+
+    private void initWidget() {
         swipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh);
         swipeLayout.setOnRefreshListener(this);//下拉组件的事件监听
-
 
         // set style for swipeRefreshLayout
         swipeLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
                 android.R.color.holo_blue_bright);
         blogListView = (LoadMoreListView) getView().findViewById(R.id.list_view);
         blogListView.setOnLoadMoreListener(this);//为listView添加加载监听
-        adapter = new BlogListAdapter(getActivity());
         blogListView.setAdapter(adapter);//设置数据适配器
+
+        blogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BlogItem blog= (BlogItem) adapter.getItem(position-1);//获取博客对象
+                Intent intent= new Intent(getActivity(), BlogDetailActivity.class);
+                intent.putExtra("blogLink", blog.getLink());
+                startActivity(intent);
+            }
+        });
+
+        noBlogLayout= getView().findViewById(R.id.ll_noBlog);
 
     }
 
