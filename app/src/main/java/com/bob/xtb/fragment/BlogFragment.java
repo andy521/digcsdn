@@ -28,12 +28,12 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private int blogType = 0;//默认的是首页
     private boolean isLoad = false;//是否正在处于加载
 
-    private View noBlogLayout;//无数据显示
+    public static View noBlogLayout;//无数据显示
     private SwipeRefreshLayout swipeLayout;  //系统带的下拉刷新控件
     private LoadMoreListView blogListView;  //具有上拉加载的ListView
     private BlogListAdapter adapter; //数据适配器
     private BlogService blogService;//博客数据库服务
-    private Page page;
+    public static Page page;//有甚叼用暂时未知！！！
 
 
     public BlogFragment(int blogType) {
@@ -53,22 +53,24 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
         initWidget();//初始化控件
 
-        if (!isLoad){//当前没有加载，就开始加载(先加载一次数据库内容，然后请求网络刷新)
-            isLoad= true;
-            List<BlogItem> blogs= blogService.loadBlog(blogType);
+        if (!isLoad) {//当前没有加载，就开始加载(先加载一次数据库内容，然后请求网络刷新)
+            isLoad = true;
+            List<BlogItem> blogs = blogService.loadBlog(blogType);
             adapter.setList(blogs);//为ListView设置数据
             adapter.notifyDataSetChanged();//通知刷新数据
             onRefresh();//开启网络刷新
+        } else {
+
         }
     }
 
     private void init() {
-        blogService= BlogService.getInstance(getActivity());
-        adapter= new BlogListAdapter(getActivity());
-        page= new Page();
+        blogService = BlogService.getInstance(getActivity());
+        adapter = new BlogListAdapter(getActivity());
+        page = new Page();
         page.setPageStart();//从第二页开始
     }
 
@@ -86,27 +88,33 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         blogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BlogItem blog= (BlogItem) adapter.getItem(position-1);//获取博客对象
-                Intent intent= new Intent(getActivity(), BlogDetailActivity.class);
+                BlogItem blog = (BlogItem) adapter.getItem(position - 1);//获取博客对象
+                Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
                 intent.putExtra("blogLink", blog.getLink());
                 startActivity(intent);
+
+                /**
+                 * 用于设置当前活动出现或者退出的动画，放在startActivity和finish之后
+                 */
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+
             }
         });
 
-        noBlogLayout= getView().findViewById(R.id.ll_noBlog);
-
+        noBlogLayout = getView().findViewById(R.id.ll_noBlog);
     }
 
 
     @Override
     public void onRefresh() {//刷新监听
-        new RefreshTask(getActivity(), "res", adapter, swipeLayout, blogListView).
+        page.setPageStart();//默认从第二页开始
+        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView).
                 execute("www.baidu.com", "refresh");
     }
 
     @Override
     public void onLoadMore() {//加载监听
-        new RefreshTask(getActivity(), "res", adapter, swipeLayout, blogListView).
+        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView).
                 execute("www.udiab.com", "load");
     }
 }

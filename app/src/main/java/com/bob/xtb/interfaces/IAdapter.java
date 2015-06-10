@@ -4,6 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.bob.xtb.bean.BlogItem;
+
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public abstract class IAdapter extends BaseAdapter{//我们只能通过处理抽
     public abstract void setList(List<?> list);//重置列表，刷新用
     public abstract void addList(List<?> list);//添加列表内容
     public abstract void clearList();//清除列表
-    public abstract List<?> getList();//获取列表
+    public abstract List<BlogItem> getList();//获取列表
     public abstract void removeItem(int position);
 
     @Override

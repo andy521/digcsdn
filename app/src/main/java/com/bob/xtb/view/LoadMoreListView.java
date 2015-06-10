@@ -45,7 +45,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
 	// footer view
 	private RelativeLayout mFooterView;
-	 private TextView mLabLoadMore;
+	private TextView mLabLoadMore;
 	private ProgressBar mProgressBarLoadMore;
 
 	// Listener to process load more items when user reaches the end of the list

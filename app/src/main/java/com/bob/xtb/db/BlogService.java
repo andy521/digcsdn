@@ -35,7 +35,11 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
         return blogService;
     }
 
-    public void insert(List<BlogItem> list){//插入一个集合的博客
+    /**
+     * 插入某一个类别的所有博客
+     * @param list
+     */
+    public void insert(List<BlogItem> list){
         db= helper.getWritableDatabase();
         values.clear();//清空values
 
