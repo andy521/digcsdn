@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XTB</string>
+    <string name="app_name">BobBlog</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_logo">Logo</string>
@@ -22,5 +22,8 @@
     
     <string name="logout">注销用户</string>
     <string name="information">\t专为个人开发的博客客户端，主要是为了随身查看博客方便，本项目由作者长期有效维护。</string>
+    <string name="title_activity_image">ImageActivity</string>
+
+    <string name="username">Bob1993</string>
 
 </resources>

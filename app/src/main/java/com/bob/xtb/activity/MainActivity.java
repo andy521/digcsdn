@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         leftMenuFragment = new LeftMenuFragment();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);//初始化抽屉布局
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);//初始化toolBar
-        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setTitle(R.string.username);
         setSupportActionBar(mToolbar);
         /**
          * 静态设置属性会先于动态设置属性，因此动态会覆盖静态的设置

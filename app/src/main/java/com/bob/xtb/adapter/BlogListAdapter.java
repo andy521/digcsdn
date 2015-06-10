@@ -4,10 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bob.xtb.R;
-import com.bob.xtb.interfaces.IAdapter;
+import com.bob.xtb.bean.BlogItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by bob on 15-5-10.
  */
-public class BlogListAdapter extends IAdapter {
+public class BlogListAdapter extends BaseAdapter {
     private ViewHolder holder ;//视图容器
     private LayoutInflater layoutInflater;//布局加载器
     private Context context;
@@ -28,27 +29,22 @@ public class BlogListAdapter extends IAdapter {
         layoutInflater= LayoutInflater.from(context);
     }
 
-    @Override
     public void setList(List list) {
         this.list= list;
     }
 
-    @Override
     public void addList(List list) {
         this.list.addAll(list);
     }
 
-    @Override
     public void clearList() {
         this.list.clear();
     }
 
-    @Override
-    public List<?> getList() {
+    public List<BlogItem> getList() {
         return null;
     }
 
-    @Override
     public void removeItem(int position) {//position只能在0～size-1范围上
         if (this.list.size()-1 > position) {
             this.list.remove(position);

@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gesture-image="http://schemas.polites.com/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <com.polites.android.GestureImageView
+        android:id="@+id/img_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        gesture-image:max-scale= "10.0"
+        gesture-image:min-scale= "0.75"
+        gesture-image:strict= "false"
+        />
+    <!--gesture-image:min-scale 缩放最小值
+        gesture-image:max-scale 缩放最大值
+        gesture-image:strict  是否精确-->
+
+    <ProgressBar
+        android:id="@+id/pro_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        />
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/transparentblack"
+        >
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_selector"
+            />
+
+        <ImageView
+            android:id="@+id/img_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/download_selector"
+            />
+    </FrameLayout>
+
+
+</FrameLayout>

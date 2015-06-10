@@ -6,11 +6,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bob.xtb.adapter.BlogListAdapter;
 import com.bob.xtb.bean.BlogItem;
-import com.bob.xtb.bean.Page;
 import com.bob.xtb.db.BlogService;
 import com.bob.xtb.fragment.BlogFragment;
-import com.bob.xtb.interfaces.IAdapter;
 import com.bob.xtb.view.LoadMoreListView;
 
 import java.util.ArrayList;
@@ -21,14 +20,14 @@ import java.util.List;
  */
 public class RefreshTask extends AsyncTask<String, Void, Integer> {//分别是传入参数类型，显示进度类型，返回结果码
 
-    private IAdapter adapter;
+    private BlogListAdapter adapter;
     private SwipeRefreshLayout swipeLayout;
     private LoadMoreListView listView;
     private BlogService service;
     private Context context;
     private int blogType= 0;//默认博客类型为首页
 
-    public RefreshTask(Context context, BlogService service, int blogType, IAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView) {
+    public RefreshTask(Context context, BlogService service, int blogType, BlogListAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView) {
         this.context = context;
         this.blogType = blogType;
         this.adapter = adapter;

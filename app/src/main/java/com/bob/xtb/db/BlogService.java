@@ -75,7 +75,7 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
         BlogItem item;
         db= helper.getReadableDatabase();
 
-        Cursor cursor= db.query(DBInfo.Table.BLOG_TABLE_NAME, null, "where " + BlogItem.BLOGTYPE + "= ?", new String[]{blogType + ""}, null, null, null);
+        Cursor cursor= db.query(DBInfo.Table.BLOG_TABLE_NAME, null, BlogItem.BLOGTYPE+"= ?", new String[]{blogType + ""}, null, null, null);
         while(cursor.moveToNext()){//第一步就直接转向第一条记录，为空则退出
             item= new BlogItem();
             item.setTitle(cursor.getString(cursor.getColumnIndex(BlogItem.TITLE)));
