@@ -3,6 +3,7 @@ package com.bob.xtb.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
+import android.widget.ImageView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.*;
@@ -45,9 +46,9 @@ public class ImageLoading {
         return imageLoading;
     }
 
-    public boolean loadImage(String url, ImageListener listener){
+    public boolean loadImage(String url, ImageView view, int defaultImg, int errorImg){
         try {
-            imageLoader.get(url, listener);
+            imageLoader.get(url, imageLoader.getImageListener(view, defaultImg,errorImg));
         }catch (Exception e){
             return false;
         }

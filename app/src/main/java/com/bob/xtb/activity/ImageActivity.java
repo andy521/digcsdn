@@ -1,17 +1,15 @@
 package com.bob.xtb.activity;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bob.xtb.R;
+import com.bob.xtb.util.FileUtil;
+import com.bob.xtb.util.ImageLoading;
 import com.polites.android.GestureImageView;
 
 /**
@@ -38,6 +36,13 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
         btBack= (ImageView) findViewById(R.id.img_back);
         btDownload= (ImageView) findViewById(R.id.img_download);
+
+        //listener需要通过imageLoader获取
+        ImageLoading imageLoading= ImageLoading.getInstance(ImageActivity.this);
+        boolean result= imageLoading.loadImage(url, imageView, R.mipmap.ic_default, R.mipmap.ic_default);
+        if (result)
+            progressBar.setVisibility(View.GONE);
+        else Toast.makeText(ImageActivity.this, "网络信号不佳", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -48,7 +53,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.img_download: {
                 imageView.setDrawingCacheEnabled(true);//使用缓存技术
-                if (true){//这个是保存到本地的方法
+                if (FileUtil.write2SdCard(imageView.getDrawingCache(), url)){//这个是保存到本地的方法
                     Toast.makeText(ImageActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(ImageActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
@@ -57,9 +62,6 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
-    //图片加载部分
-
 
     @Override
     public void finish() {
