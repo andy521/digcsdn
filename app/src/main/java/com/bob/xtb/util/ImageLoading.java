@@ -24,7 +24,7 @@ public class ImageLoading {
 
     public synchronized static ImageLoading getInstance(Context context){
         if (imageLoading == null) {
-            imageLoading = new ImageLoading(new ImageLoader(Volley.newRequestQueue(context), new ImageCache() {
+            imageLoading = new ImageLoading(new ImageLoader(VolleyUtil.getQueue(), new ImageCache() {
 
                 LruCache<String, Bitmap> mCache= new LruCache<String,Bitmap>(maxSize){//缓存总大小
                     @Override//匿名内部类继承LruCache类，即缓存池
