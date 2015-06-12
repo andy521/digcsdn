@@ -2,6 +2,7 @@ package com.bob.xtb.util;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class RefreshTask{
         StringRequest htmlRequest= new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String html) {
-
+                LogUtil.i("html", html);//已经可以获取html了
                 List<BlogItem> list= new ArrayList<>();//Jsoup解析html
                 if (list.size()== 0){
                     listView.setCanLoadMore(false);//停止加载
@@ -74,6 +75,9 @@ public class RefreshTask{
                 listView.setCanLoadMore(false);//设置为不可加载状态
             }
         });
+        if (VolleyUtil.getContext()== null){
+            LogUtil.i("queue", "is empty");
+        }
         VolleyUtil.getQueue().add(htmlRequest);//队列里肯定是按顺序执行的，也不用担心多线程访问的线程安全问题
     }
 }

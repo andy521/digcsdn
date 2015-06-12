@@ -1,6 +1,7 @@
 package com.bob.xtb.bean;
 
 /**
+ * 对应BlogFragment里的列表条目项
  * Created by bob on 15-6-8.
  */
 public class BlogItem {
@@ -9,7 +10,7 @@ public class BlogItem {
     private String link;    //本篇文章的链接
     private String date;    //博客发布时间
     private String imgLink; //图片链接
-    private String content; //文章内容
+    private String content; //文章概要描述
     private String msg;     //消息,有待探讨
     private int blogType;       //博客分类
 

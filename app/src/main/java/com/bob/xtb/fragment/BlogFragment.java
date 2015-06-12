@@ -109,7 +109,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {//刷新监听
         page.setPageStart();//默认从第二页开始
         new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView).
-                execute("www.baidu.com", RefreshTask.REFRESH);
+                execute("http://www.baidu.com", RefreshTask.REFRESH);
     }
 
     @Override

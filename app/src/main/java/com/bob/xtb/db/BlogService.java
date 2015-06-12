@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.bob.xtb.bean.BlogItem;
+import com.bob.xtb.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,9 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
         db= helper.getWritableDatabase();
         values.clear();//清空values
 
+        if (list== null){
+            LogUtil.i("service", "empty");
+        }
         for (BlogItem item: list){//老规矩，不添加主键
             values.put(BlogItem.TITLE, item.getTitle());
             values.put(BlogItem.CONTENT, item.getContent());
@@ -62,7 +66,7 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
      */
     public void delete(int blogType){
         db= helper.getWritableDatabase();
-        db.delete(DBInfo.Table.BLOG_TABLE_NAME, "where "+BlogItem.BLOGTYPE+"= ?",new String[]{blogType+""});
+        db.delete(DBInfo.Table.BLOG_TABLE_NAME, BlogItem.BLOGTYPE+"= ?",new String[]{blogType+""});
     }
 
     /**

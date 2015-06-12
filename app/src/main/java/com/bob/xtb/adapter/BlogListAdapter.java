@@ -42,7 +42,7 @@ public class BlogListAdapter extends BaseAdapter {
     }
 
     public List<BlogItem> getList() {
-        return null;
+        return list;
     }
 
     public void removeItem(int position) {//position只能在0～size-1范围上
