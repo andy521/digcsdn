@@ -22,7 +22,6 @@ import com.bob.digcsdn.adapter.MenuListAdapter;
  */
 public class LeftMenuFragment extends Fragment {
 
-    private LinearLayout llLogout;
     private ListView menuListView;
     private MenuListAdapter menuAdapter;
     private Context context;
@@ -51,13 +50,16 @@ public class LeftMenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
-                    case 0:
+                    case 0://个人设置
                         skipActivity(SettingsActivity.class);
                         break;
-                    case 1:
+                    case 1://用户切换
+                        Toast.makeText(context, "本功能将在新的版本中出现", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2://检查更新
                         Toast.makeText(context, "正在检查中...", Toast.LENGTH_SHORT).show();
                         break;
-                    case 2:
+                    case 3://关于
                         skipActivity(AboutActivity.class);
                 }
             }
