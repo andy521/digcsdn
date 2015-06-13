@@ -11,14 +11,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.bob.xtb.bean.Blog;
 import com.bob.xtb.bean.BlogItem;
-import com.bob.xtb.bean.Comment;
 
 /**
- * 
- * @author wwj_748
- * @date 2014/8/10
+ *csdn的博客样式都是多页显示，所以就有了我们的Page类
+ *Created by bob on 15-6-13.
  */
 public class JsoupUtil {
 	public static boolean contentFirstPage = true; // 第一页
@@ -26,7 +23,7 @@ public class JsoupUtil {
 	public static boolean multiPages = false; // 多页
 	private static final String BLOG_URL = "http://blog.csdn.net"; // CSDN博客地址
 
-	// 链接样式文件，代码块高亮的处理
+	// 链接样式文件，代码块高亮的处理,不懂
 	public final static String linkCss = "<script type=\"text/javascript\" src=\"file:///android_asset/shCore.js\"></script>"
 			+ "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushJScript.js\"></script>"
 			+ "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushJava.js\"></script>"
@@ -41,35 +38,35 @@ public class JsoupUtil {
 	}
 
 	/**
-	 * 使用Jsoup解析html文档
-	 * 
+	 * 使用Jsoup解析博客摘要视图列表
 	 * @param blogType
-	 * @param str
+	 * @param html
 	 * @return
 	 */
-	public static List<BlogItem> getBlogItemList(int blogType, String str) {
+	public static List<BlogItem> getBlogItemList(int blogType, String html) {
 
 		List<BlogItem> list = new ArrayList<>();
-		// 获取文档对象
-		Document doc = Jsoup.parse(str);
+		// 将html字符串解析为Document对象
+		Document doc = Jsoup.parse(html);
 		// Log.e("doc--->", doc.toString());
-		// 获取class="article_item"的所有元素
+		// 获取class="article_item"的所有节点元素，也就是视图列表的一个条目
 		Elements blogList = doc.getElementsByClass("article_item");
 		// Log.e("elements--->", blogList.toString());
 
-		for (Element blogItem : blogList) {
+		for (Element blogItem : blogList) {//一一遍历每一个article_item
 			BlogItem item = new BlogItem();
-			String title = blogItem.select("h1").text(); // 得到标题
+			String title = blogItem.select("h1").text(); //得到<h1></h1>节点里的内容，也就是当前文章标题，这里类似于xml的pull解析
 			// System.out.println("title----->" + title);
 			String description = blogItem.select("div.article_description")
-					.text();
+					.text();//抓取class属性是article_description的div的内容
 			// System.out.println("descrition--->" + description);
 			String msg = blogItem.select("div.article_manage").text();
-			// System.out.println("msg--->" + msg);
+			 System.out.println("msg--->" + msg);
+
 			String date = blogItem.getElementsByClass("article_manage").get(0)
-					.text();
+					.text();//获取article_manage下的第一个元素内容，即就是日期link_postdate
 			// System.out.println("date--->" + date);
-			String link = BLOG_URL
+			String link = BLOG_URL//h1下a节点的href属性值
 					+ blogItem.select("h1").select("a").attr("href");
 			// System.out.println("link--->" + link);
 			item.setTitle(title);
@@ -79,7 +76,7 @@ public class JsoupUtil {
 			item.setLink(link);
 			item.setBlogType(blogType);
 
-			// 没有图片
+			// 没有图片,那还要他有何用？
 			item.setImgLink(null);
 			list.add(item);
 
@@ -93,7 +90,7 @@ public class JsoupUtil {
 	 * @param url
 	 * @param str
 	 * @return
-	 */
+	 *//*
 	public static List<Blog> getContent(String url, String str) {
 		List<Blog> list = new ArrayList<Blog>();
 
@@ -216,13 +213,13 @@ public class JsoupUtil {
 		return list;
 	}
 
-	/**
+	*//**
 	 * 获取博文评论列表
 	 * 
 	 * @param str
 	 *            json字符串
 	 * @return
-	 */
+	 *//*
 	public static List<Comment> getBlogCommentList(String str, int pageIndex,
 			int pageSize) {
 		List<Comment> list = new ArrayList<Comment>();
@@ -278,12 +275,12 @@ public class JsoupUtil {
 		return list;
 	}
 
-	/**
+	*//**
 	 * 获得博主个人资料
 	 * 
 	 * @param str
 	 * @return
-	 */
+	 *//*
 	public static Blogger getBloggerInfo(String str) {
 
 		
@@ -329,12 +326,12 @@ public class JsoupUtil {
 		return blogger;
 	}
 
-	/**
+	*//**
 	 * 半角转换为全角 全角---指一个字符占用两个标准字符位置。 半角---指一字符占用一个标准的字符位置。
 	 * 
 	 * @param input
 	 * @return
-	 */
+	 *//*
 	public static String ToDBC(String input) {
 		char[] c = input.toCharArray();
 		for (int i = 0; i < c.length; i++) {
@@ -346,6 +343,6 @@ public class JsoupUtil {
 				c[i] = (char) (c[i] - 65248);
 		}
 		return new String(c);
-	}
+	}*/
 
 }

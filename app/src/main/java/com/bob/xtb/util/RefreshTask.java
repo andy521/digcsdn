@@ -47,7 +47,7 @@ public class RefreshTask{
             @Override
             public void onResponse(String html) {
                 LogUtil.i("html", html);//已经可以获取html了
-                List<BlogItem> list= new ArrayList<>();//Jsoup解析html
+                List<BlogItem> list= JsoupUtil.getBlogItemList(blogType, html);//Jsoup解析html
                 if (list.size()== 0){
                     listView.setCanLoadMore(false);//停止加载
                 }

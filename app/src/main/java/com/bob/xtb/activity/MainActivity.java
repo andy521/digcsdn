@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
          * 达到调试目的
          */
         pager.setOffscreenPageLimit(1);//设置最多可以加载的页数== 总页数,这里就缓存1页？？？
+        //当然就缓存一页，因为每次的加载都需要保证列表是最新的
         pager.setAdapter(tabAdapter);
 
         indicator.setViewPager(pager);
