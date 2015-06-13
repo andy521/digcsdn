@@ -45,6 +45,7 @@ public class RefreshTask{
             @Override
             public void onResponse(String html) {
 
+                listView.setCanLoadMore(true);
                 List<BlogItem> list= JsoupUtil.getBlogItemList(blogType, html);//Jsoup解析html
                 if (list.size()== 0||service.isDuplicate(list)){//重复或者空列表，则停止加载
                     listView.setCanLoadMore(false);//停止加载

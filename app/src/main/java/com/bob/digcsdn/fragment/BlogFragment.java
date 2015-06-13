@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.bob.digcsdn.R;
-import com.bob.digcsdn.activity.BlogDetailActivity;
 import com.bob.digcsdn.adapter.BlogListAdapter;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.bean.Page;
@@ -90,15 +90,20 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         blogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BlogItem blog = (BlogItem) adapter.getItem(position - 1);//获取博客对象
-                Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
+                if (position == adapter.getCount()) {
+                    Toast.makeText(getActivity(), "再点割 jj！！！", Toast.LENGTH_SHORT).show();
+                }else{
+                     BlogItem blog = (BlogItem) adapter.getItem(position);//获取博客对象
+                     Toast.makeText(getActivity(), "position " + position + "  " + blog.getTitle(), Toast.LENGTH_SHORT).show();
+                 }
+                /*Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
                 intent.putExtra("blogLink", blog.getLink());
-                startActivity(intent);
+                startActivity(intent);*/
 
                 /**
                  * 用于设置当前活动出现或者退出的动画，放在startActivity和finish之后
                  */
-                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+                //getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
 
             }
         });

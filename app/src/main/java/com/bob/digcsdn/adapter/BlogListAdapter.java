@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bob.digcsdn.R;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.util.ImageLoading;
+import com.bob.digcsdn.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class BlogListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+        LogUtil.i("item",position+" "+list.size());
         return list.get(position);
     }
 
