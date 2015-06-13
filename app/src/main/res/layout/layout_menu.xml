@@ -16,7 +16,7 @@
         >
 
         <!--自定义的圆形ImageView,如果图片为透明色，可以有更简单的处理方式-->
-        <com.bob.xtb.view.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.bob.digcsdn.view.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
             android:layout_width="70dp"
             android:layout_height="70dp"

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bob.xtb">
+    package="com.bob.digcsdn">
 
     <application
-        android:name=".util.VolleyUtil"
+        android:name="com.bob.digcsdn.util.VolleyUtil"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme">
         <activity
-            android:name=".activity.LogoActivity"
+            android:name="com.bob.digcsdn.activity.LogoActivity"
             android:label="@string/app_name"
             android:theme="@style/LogoTheme">
             <intent-filter>
@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.ImageActivity"></activity>
+        <activity android:name="com.bob.digcsdn.activity.MainActivity" />
+        <activity android:name="com.bob.digcsdn.activity.AboutActivity" />
+        <activity android:name="com.bob.digcsdn.activity.SettingsActivity" />
+        <activity android:name="com.bob.digcsdn.activity.ImageActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
