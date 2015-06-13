@@ -41,13 +41,14 @@ public class RefreshTask{
     }
 
     public void execute(String url, final int taskType){
+       // listView.setCanLoadMore(true);
         StringRequest htmlRequest= new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String html) {
-
                 listView.setCanLoadMore(true);
                 List<BlogItem> list= JsoupUtil.getBlogItemList(blogType, html);//Jsoup解析html
-                if (list.size()== 0||service.isDuplicate(list)){//重复或者空列表，则停止加载
+                LogUtil.i("加载的数量", list.size()+"");
+                if (list.size()== 0||list.size()> 15){//重复或者空列表，则停止加载
                     listView.setCanLoadMore(false);//停止加载
                 }
                 if (taskType== REFRESH) {//刷新,这里只会存上第一页的博客，因为在加载的时候，并没有存库
@@ -60,8 +61,14 @@ public class RefreshTask{
                     if (adapter.getCount()== 0)
                         BlogFragment.noBlogLayout.setVisibility(View.VISIBLE);
                 }else{//加载
-                    adapter.addList(list);
-                    adapter.notifyDataSetChanged();
+                    /**
+                     * 在主页中加载超页之后，不再分页显示,分页的时候按照每页15条显示
+                     */
+                    LogUtil.i("加载的数量", list.size()+"");
+                    if (list.size()<= 15) {
+                        adapter.addList(list);
+                        adapter.notifyDataSetChanged();
+                    }
                     listView.onLoadMoreComplete();//本次加载完毕
                     BlogFragment.page.addPage();//加载完毕后指向下一页
                 }

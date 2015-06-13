@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.bob.digcsdn.bean.Blog;
 import com.bob.digcsdn.bean.BlogItem;
+import com.bob.digcsdn.fragment.BlogFragment;
 import com.bob.digcsdn.util.LogUtil;
 
 import java.util.ArrayList;
@@ -94,29 +96,5 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
         db.close();
         return blogs;
     }
-
-    public boolean queryByTitle(String title){
-        boolean result= true;//默认是存在的
-        db= helper.getReadableDatabase();
-
-        Cursor cursor= db.query(DBInfo.Table.BLOG_TABLE_NAME, null, BlogItem.TITLE+"= ?", new String[]{title}, null, null, null);
-        if (cursor.moveToFirst()){
-            result= false;
-        }
-        cursor.close();
-        db.close();
-
-        return result;
-    }
-
-    public boolean isDuplicate(List<BlogItem> list){//有一个不算bug的bug，就是在页面视图首页，它不受页数限制，我们需要使用查重来解决这个问题，去数据库里查吧
-        for (BlogItem item: list){
-            LogUtil.i("testing", item.getTitle());
-            if (queryByTitle(item.getTitle())&& !item.getTitle().contains("置顶"))//出现重复且非置顶博客
-                return true;//找到对应的博客了，返回重复
-
-        }
-        return false;//不重复
-    }
-
+    
 }
