@@ -30,7 +30,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private int blogType = 0;//默认的是首页
     private boolean isLoad = false;//是否正在处于加载
 
-    public static View noBlogLayout;//无数据显示
+    private View noBlogLayout;//无数据显示
     private SwipeRefreshLayout swipeLayout;  //系统带的下拉刷新控件
     private LoadMoreListView blogListView;  //具有上拉加载的ListView
     private BlogListAdapter adapter; //数据适配器
@@ -59,11 +59,11 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         initWidget();//初始化控件
 
         if (!isLoad) {//当前没有加载，就开始加载(先加载一次数据库内容，然后请求网络刷新)
-            isLoad = true;
+            isLoad = true;//表示加载过了，不用二次加载
             List<BlogItem> blogs = blogService.loadBlog(blogType);
             adapter.setList(blogs);//为ListView设置数据
             adapter.notifyDataSetChanged();//通知刷新数据
-            //onRefresh();//开启网络刷新
+            onRefresh();//直接开启网络刷新，没有手势？？？会卡顿的
         } else {
 
         }
@@ -115,14 +115,14 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {//刷新监听
         page.setPageStart();//默认从第二页开始
-        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView).
+        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout).
                 execute(UrlUtil.getRefreshBlogListURL(blogType), RefreshTask.REFRESH);
     }
 
     @Override
     public void onLoadMore() {//加载监听
         Log.i("refreshitem", blogType+" "+page.getCurrentPage());
-        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView).
+        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout).
                 execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), RefreshTask.LOAD);
     }
 }

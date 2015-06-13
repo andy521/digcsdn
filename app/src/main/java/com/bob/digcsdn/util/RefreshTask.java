@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class RefreshTask{
 
+    private View noBlogLayout;
     private BlogListAdapter adapter;
     private SwipeRefreshLayout swipeLayout;
     private LoadMoreListView listView;
@@ -31,13 +32,14 @@ public class RefreshTask{
     public static final int REFRESH = 0;
     public static final int LOAD= 1;
 
-    public RefreshTask(Context context, BlogService service, int blogType, BlogListAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView) {
+    public RefreshTask(Context context, BlogService service, int blogType, BlogListAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView, View noBlogLayout) {
         this.context = context;
         this.blogType = blogType;
         this.adapter = adapter;
         this.swipeLayout = swipeLayout;
         this.listView = listView;
         this.service= service;
+        this.noBlogLayout= noBlogLayout;
     }
 
     public void execute(String url, final int taskType){
@@ -59,7 +61,7 @@ public class RefreshTask{
                     service.insert(adapter.getList());//存库
 
                     if (adapter.getCount()== 0)
-                        BlogFragment.noBlogLayout.setVisibility(View.VISIBLE);
+                        noBlogLayout.setVisibility(View.VISIBLE);
                 }else{//加载
                     /**
                      * 在主页中加载超页之后，不再分页显示,分页的时候按照每页15条显示
