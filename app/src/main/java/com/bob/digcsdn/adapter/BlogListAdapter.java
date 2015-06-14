@@ -32,7 +32,7 @@ public class BlogListAdapter extends BaseAdapter {
         layoutInflater= LayoutInflater.from(context);
     }
 
-    public void setList(List list) {
+    public synchronized void setList(List list) {
         this.list= list;
     }
 

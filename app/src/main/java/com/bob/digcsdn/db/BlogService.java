@@ -41,7 +41,7 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
      * 插入某一个类别的所有博客
      * @param list
      */
-    public void insert(List<BlogItem> list){
+    public synchronized void insert(List<BlogItem> list){
         db= helper.getWritableDatabase();
         values.clear();//清空values
 
@@ -65,9 +65,10 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
      * 删除一种栏目博客的数据存储
      * @param blogType
      */
-    public void delete(int blogType){
+    public synchronized void delete(int blogType){
         db= helper.getWritableDatabase();
         db.delete(DBInfo.Table.BLOG_TABLE_NAME, BlogItem.BLOGTYPE+"= ?",new String[]{blogType+""});
+        db.close();
     }
 
     /**
@@ -75,7 +76,7 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
      * @param blogType
      * @return
      */
-    public List<BlogItem> loadBlog(int blogType){
+    public synchronized List<BlogItem> loadBlog(int blogType){
         List<BlogItem> blogs= new ArrayList<>();
         BlogItem item;
         db= helper.getReadableDatabase();

@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.bob.digcsdn.bean.BlogItem;
+import com.bob.digcsdn.interfaces.JsonCallBackListener;
 
 /**
  *csdn的博客样式都是多页显示，所以就有了我们的Page类
@@ -40,44 +41,50 @@ public class JsoupUtil {
 	 * @param html
 	 * @return
 	 */
-	public static List<BlogItem> getBlogItemList(int blogType, String html) {
+	public static void getBlogItemList(final int blogType, final String html, final JsonCallBackListener listener) {
 
-		List<BlogItem> list = new ArrayList<>();
-		// 将html字符串解析为Document对象
-		Document doc = Jsoup.parse(html);
-		// Log.e("doc--->", doc.toString());
-		// 获取class="article_item"的所有节点元素，也就是视图列表的一个条目
-		Elements blogList = doc.getElementsByClass("article_item");
-		// Log.e("elements--->", blogList.toString());
+		new Thread(){
+			@Override
+			public void run() {
+				List<BlogItem> list = new ArrayList<>();
+				// 将html字符串解析为Document对象
+				Document doc = Jsoup.parse(html);
+				// Log.e("doc--->", doc.toString());
+				// 获取class="article_item"的所有节点元素，也就是视图列表的一个条目
+				Elements blogList = doc.getElementsByClass("article_item");
+				// Log.e("elements--->", blogList.toString());
 
-		for (Element blogItem : blogList) {//一一遍历每一个article_item
-			BlogItem item = new BlogItem();
-			String title = blogItem.select("h1").text(); //得到<h1></h1>节点里的内容，也就是当前文章标题，这里类似于xml的pull解析
-			// System.out.println("title----->" + title);
-			String description = blogItem.select("div.article_description")
-					.text();//抓取class属性是article_description的div的内容
-			// System.out.println("descrition--->" + description);
-			String msg = blogItem.select("div.article_manage").text();
+				for (Element blogItem : blogList) {//一一遍历每一个article_item
+					BlogItem item = new BlogItem();
+					String title = blogItem.select("h1").text(); //得到<h1></h1>节点里的内容，也就是当前文章标题，这里类似于xml的pull解析
+					// System.out.println("title----->" + title);
+					String description = blogItem.select("div.article_description")
+							.text();//抓取class属性是article_description的div的内容
+					// System.out.println("descrition--->" + description);
+					String msg = blogItem.select("div.article_manage").text();
 
-			String date = blogItem.getElementsByClass("article_manage").get(0)
-					.text();//获取article_manage下的第一个元素内容，即就是日期link_postdate
-			// System.out.println("date--->" + date);
-			String link = BLOG_URL//h1下a节点的href属性值
-					+ blogItem.select("h1").select("a").attr("href");
-			// System.out.println("link--->" + link);
-			item.setTitle(title);
-			item.setMsg(msg);
-			item.setContent(description);
-			item.setDate(date);
-			item.setLink(link);
-			item.setBlogType(blogType);
+					String date = blogItem.getElementsByClass("article_manage").get(0)
+							.text();//获取article_manage下的第一个元素内容，即就是日期link_postdate
+					// System.out.println("date--->" + date);
+					String link = BLOG_URL//h1下a节点的href属性值
+							+ blogItem.select("h1").select("a").attr("href");
+					// System.out.println("link--->" + link);
+					item.setTitle(title);
+					item.setMsg(msg);
+					item.setContent(description);
+					item.setDate(date);
+					item.setLink(link);
+					item.setBlogType(blogType);
 
-			// 没有图片,那还要他有何用？
-			item.setImgLink(null);
-			list.add(item);
+					// 没有图片,那还要他有何用？
+					item.setImgLink(null);
+					list.add(item);
+				}
 
-		}
-		return list;
+				listener.onFinish(list);
+			}
+		}.start();
+
 	}
 
 	/**
