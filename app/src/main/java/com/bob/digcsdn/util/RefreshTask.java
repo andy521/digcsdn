@@ -3,6 +3,7 @@ package com.bob.digcsdn.util;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -22,6 +23,7 @@ import java.util.List;
 public class RefreshTask{
 
     private View noBlogLayout;
+    private ProgressBar progressBar;
     private BlogListAdapter adapter;
     private SwipeRefreshLayout swipeLayout;
     private LoadMoreListView listView;
@@ -32,7 +34,7 @@ public class RefreshTask{
     public static final int REFRESH = 0;
     public static final int LOAD= 1;
 
-    public RefreshTask(Context context, BlogService service, int blogType, BlogListAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView, View noBlogLayout) {
+    public RefreshTask(Context context, BlogService service, int blogType, BlogListAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView, View noBlogLayout, ProgressBar progressBar) {
         this.context = context;
         this.blogType = blogType;
         this.adapter = adapter;
@@ -40,6 +42,7 @@ public class RefreshTask{
         this.listView = listView;
         this.service= service;
         this.noBlogLayout= noBlogLayout;
+        this.progressBar= progressBar;
     }
 
     public void execute(String url, final int taskType){
@@ -47,7 +50,9 @@ public class RefreshTask{
         StringRequest htmlRequest= new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String html) {
+                progressBar.setVisibility(View.INVISIBLE);
                 listView.setCanLoadMore(true);
+                noBlogLayout.setVisibility(View.INVISIBLE);
                 List<BlogItem> list= JsoupUtil.getBlogItemList(blogType, html);//Jsoup解析html
                 LogUtil.i("加载的数量", list.size()+"");
                 if (list.size()== 0||list.size()> 15){//重复或者空列表，则停止加载
@@ -83,9 +88,7 @@ public class RefreshTask{
                 listView.setCanLoadMore(false);//设置为不可加载状态
             }
         });
-        if (VolleyUtil.getContext()== null){
-            LogUtil.i("queue", "is empty");
-        }
+
         VolleyUtil.getQueue().add(htmlRequest);//队列里肯定是按顺序执行的，也不用担心多线程访问的线程安全问题
     }
 

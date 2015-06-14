@@ -1,7 +1,6 @@
 package com.bob.digcsdn.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bob.digcsdn.R;
@@ -17,11 +17,10 @@ import com.bob.digcsdn.adapter.BlogListAdapter;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.bean.Page;
 import com.bob.digcsdn.db.BlogService;
+import com.bob.digcsdn.util.LogUtil;
 import com.bob.digcsdn.util.RefreshTask;
 import com.bob.digcsdn.util.UrlUtil;
 import com.bob.digcsdn.view.LoadMoreListView;
-
-import java.util.List;
 
 /**
  * Created by bob on 15-4-21.
@@ -31,16 +30,17 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private boolean isLoad = false;//是否正在处于加载
 
     private View noBlogLayout;//无数据显示
+    private ProgressBar progressBar;//进度条预览
     private SwipeRefreshLayout swipeLayout;  //系统带的下拉刷新控件
     private LoadMoreListView blogListView;  //具有上拉加载的ListView
     private BlogListAdapter adapter; //数据适配器
     private BlogService blogService;//博客数据库服务
     public static Page page;//有甚叼用暂时未知！！！浏览器的博客列表是分页显示的
 
-
     public BlogFragment(int blogType) {
         this.blogType = blogType;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,16 +57,21 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initWidget();//初始化控件
-
-        if (!isLoad) {//当前没有加载，就开始加载(先加载一次数据库内容，然后请求网络刷新)
-            isLoad = true;//表示加载过了，不用二次加载
-            List<BlogItem> blogs = blogService.loadBlog(blogType);
-            adapter.setList(blogs);//为ListView设置数据
-            adapter.notifyDataSetChanged();//通知刷新数据
-            onRefresh();//直接开启网络刷新，没有手势？？？会卡顿的
-        } else {
-
+        if (!isLoad) {
+            LogUtil.i("flag", "into "+blogType);
+            isLoad= true;
+            /**
+             * 这里只需要在第一次进入的时候访问网络加载数据即可，二次回来的时候，成员变量不会被销毁
+             * 因此adapter只要保存完好，数据就不会丢失
+             */
+            onRefresh();
+        }else {
+            LogUtil.i("back", "into "+blogType);
+            progressBar.setVisibility(View.INVISIBLE);
+            if (blogService.loadBlog(blogType).size()== 0)
+                noBlogLayout.setVisibility(View.VISIBLE);//恢复noBlogLayout应有的状态
         }
+
     }
 
     private void init() {
@@ -77,6 +82,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initWidget() {
+        progressBar= (ProgressBar) getView().findViewById(R.id.pro_blog_main);
         swipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh);
         swipeLayout.setOnRefreshListener(this);//下拉组件的事件监听
 
@@ -92,10 +98,10 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == adapter.getCount()) {
                     Toast.makeText(getActivity(), "再点割 jj！！！", Toast.LENGTH_SHORT).show();
-                }else{
-                     BlogItem blog = (BlogItem) adapter.getItem(position);//获取博客对象
-                     Toast.makeText(getActivity(), "position " + position + "  " + blog.getTitle(), Toast.LENGTH_SHORT).show();
-                 }
+                } else {
+                    BlogItem blog = (BlogItem) adapter.getItem(position);//获取博客对象
+                    Toast.makeText(getActivity(), "position " + position + "  " + blog.getTitle(), Toast.LENGTH_SHORT).show();
+                }
                 /*Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
                 intent.putExtra("blogLink", blog.getLink());
                 startActivity(intent);*/
@@ -115,14 +121,14 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {//刷新监听
         page.setPageStart();//默认从第二页开始
-        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout).
+        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout, progressBar).
                 execute(UrlUtil.getRefreshBlogListURL(blogType), RefreshTask.REFRESH);
     }
 
     @Override
     public void onLoadMore() {//加载监听
-        Log.i("refreshitem", blogType+" "+page.getCurrentPage());
-        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout).
+        Log.i("refreshitem", blogType + " " + page.getCurrentPage());
+        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout, progressBar).
                 execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), RefreshTask.LOAD);
     }
 }
