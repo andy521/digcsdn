@@ -11,6 +11,7 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/img_comment_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -31,8 +32,8 @@
         />
     <!--可以使用一个权重为1的控件来填充布局-->
 
-    <TextView
-        android:id="@+id/tv_comment"
+    <ImageView
+        android:id="@+id/img_comment"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"

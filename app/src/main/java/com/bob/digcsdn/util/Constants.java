@@ -5,7 +5,7 @@ package com.bob.digcsdn.util;
  */
 public class Constants {//存放常量的一个类，ps:禁止使用常量接口
 
-    public class DEF_BLOG_ITEM_TYPE {
+    public class DEF_BLOG_ITEM_TYPE {//博客列表条目内容信息
         public static final int TITLE = 1; // 标题
         public static final int SUMMARY = 2; // 摘要
         public static final int CONTENT = 3; // 内容
@@ -14,7 +14,7 @@ public class Constants {//存放常量的一个类，ps:禁止使用常量接口
         public static final int CODE = 6; // 代码
     }
 
-    public class DEF_ARTICLE_TYPE {
+    public class DEF_ARTICLE_TYPE {//文章类型
         public static final int HOME = 0; // 首页
         public static final int DAILY_LIFE = 1; // 生活杂谈
         public static final int ANDROID = 2; // android启蒙

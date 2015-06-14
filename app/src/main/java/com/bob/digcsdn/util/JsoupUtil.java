@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.bob.digcsdn.bean.Blog;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.interfaces.JsonCallBackListener;
 
@@ -84,18 +85,16 @@ public class JsoupUtil {
 				listener.onFinish(list);
 			}
 		}.start();
-
 	}
 
 	/**
 	 * 扒取传入url地址的博客详细内容
-	 * 
-	 * @param url
+	 *
 	 * @param str
 	 * @return
-	 *//*
-	public static List<Blog> getContent(String url, String str) {
-		List<Blog> list = new ArrayList<Blog>();
+	 */
+	public static List<Blog> getContent( String str) {
+		List<Blog> list = new ArrayList<>();
 
 		// 获取文档内容
 		Document doc = Jsoup.parse(str);
@@ -216,7 +215,8 @@ public class JsoupUtil {
 		return list;
 	}
 
-	*//**
+
+	/**
 	 * 获取博文评论列表
 	 * 
 	 * @param str
@@ -334,7 +334,7 @@ public class JsoupUtil {
 	 * 
 	 * @param input
 	 * @return
-	 *//*
+	 */
 	public static String ToDBC(String input) {
 		char[] c = input.toCharArray();
 		for (int i = 0; i < c.length; i++) {
@@ -346,6 +346,6 @@ public class JsoupUtil {
 				c[i] = (char) (c[i] - 65248);
 		}
 		return new String(c);
-	}*/
+	}
 
 }

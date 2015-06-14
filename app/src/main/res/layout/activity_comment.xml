@@ -30,7 +30,7 @@
     <!--ProgressBar默认为圆圈-->
 
     <LinearLayout
-        android:id="@+id/ll_reLoad"
+        android:id="@+id/ll_comment_reLoad"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:text="\t\t\t网络出问题啦\n请仔细检查网络连接喔"
             />
         <Button
-            android:id="@+id/bt_reLoad"
+            android:id="@+id/bt_comment_reLoad"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

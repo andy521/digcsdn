@@ -11,18 +11,17 @@
         <include layout="@layout/article_detail_head"></include>
     </RelativeLayout>
 
-    <RelativeLayout
+    <com.bob.digcsdn.view.LoadMoreListView
+        android:id="@+id/list_article_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/head">
-
-        <include layout="@layout/slistview"></include>
-    </RelativeLayout>
+        android:layout_below="@id/head"
+        android:divider="@null"
+        ></com.bob.digcsdn.view.LoadMoreListView>
     <!--博客内容使用listView是何居心？？？-->
 
     <ProgressBar
-        android:id="@+id/pro_blog_content"
-        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/pro_article_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -31,7 +30,7 @@
     <!--ProgressBar默认为圆圈-->
 
     <LinearLayout
-        android:id="@+id/ll_reLoad"
+        android:id="@+id/ll_article_reLoad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -44,7 +43,7 @@
             android:text="\t\t\t网络出问题啦\n请仔细检查网络连接喔" />
 
         <Button
-            android:id="@+id/bt_reLoad"
+            android:id="@+id/bt_article_reLoad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

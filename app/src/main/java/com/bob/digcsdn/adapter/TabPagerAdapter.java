@@ -3,8 +3,10 @@ package com.bob.digcsdn.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.bob.digcsdn.fragment.BlogFragment;
+import com.bob.digcsdn.util.LogUtil;
 
 /**
  * Created by bob on 15-5-10.
@@ -22,6 +24,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
             case 0: break;
             default:break;
         }
+        LogUtil.i("getItem", position+"");
         return new BlogFragment(position);
     }
 

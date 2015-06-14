@@ -90,19 +90,22 @@ public class FileUtil {
         return new ByteArrayInputStream(bitmap2Bytes(bm));
     }
 
-    public static StringBuilder getFileContent(Context context, String fileName){//应该是文件的全限定名
-        StringBuilder content= new StringBuilder();
+    public static String getFileContent(Context context, String fileName){//应该是文件的全限定名
+        String content = "";
         try {
-            InputStream is= context.getResources().getAssets().open(fileName);
-
-            byte[] buffer= new byte[1024];
-            int count= 0;
-            while((count= is.read(buffer))> 0){
-                content.append(new String(buffer, 0, count, Charset.forName("utf-8")));
+            // 把数据从文件中读入内存
+            InputStream is = context.getResources().getAssets().open(fileName);
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int i = is.read(buffer, 0, buffer.length);
+            while (i > 0) {
+                bs.write(buffer, 0, i);
+                i = is.read(buffer, 0, buffer.length);
             }
-        }catch (Exception e){
+            content = new String(bs.toByteArray(), Charset.forName("utf-8"));
+        } catch (Exception e) {
             e.printStackTrace();
-            return content;//返回的是一个错误的content
+            return "";
         }
         return content;
     }

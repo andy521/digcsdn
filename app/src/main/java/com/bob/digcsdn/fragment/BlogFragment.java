@@ -1,6 +1,7 @@
 package com.bob.digcsdn.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bob.digcsdn.R;
+import com.bob.digcsdn.activity.BlogDetailActivity;
 import com.bob.digcsdn.adapter.BlogListAdapter;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.bean.Page;
@@ -58,17 +60,17 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         super.onActivityCreated(savedInstanceState);
         initWidget();//初始化控件
         if (!isLoad) {
-            LogUtil.i("flag", "into "+blogType);
-            isLoad= true;
+            LogUtil.i("flag", "into " + blogType);
+            isLoad = true;
             /**
              * 这里只需要在第一次进入的时候访问网络加载数据即可，二次回来的时候，成员变量不会被销毁
              * 因此adapter只要保存完好，数据就不会丢失
              */
             onRefresh();
-        }else {
-            LogUtil.i("back", "into "+blogType);
+        } else {
+            LogUtil.i("back", "into " + blogType);
             progressBar.setVisibility(View.INVISIBLE);
-            if (blogService.loadBlog(blogType).size()== 0)
+            if (blogService.loadBlog(blogType).size() == 0)
                 noBlogLayout.setVisibility(View.VISIBLE);//恢复noBlogLayout应有的状态
         }
 
@@ -82,7 +84,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initWidget() {
-        progressBar= (ProgressBar) getView().findViewById(R.id.pro_blog_main);
+        progressBar = (ProgressBar) getView().findViewById(R.id.pro_blog_main);
         swipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh);
         swipeLayout.setOnRefreshListener(this);//下拉组件的事件监听
 
@@ -99,17 +101,16 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 if (position == adapter.getCount()) {
                     Toast.makeText(getActivity(), "再点割 jj！！！", Toast.LENGTH_SHORT).show();
                 } else {
-                    BlogItem blog = (BlogItem) adapter.getItem(position);//获取博客对象
-                    Toast.makeText(getActivity(), "position " + position + "  " + blog.getTitle(), Toast.LENGTH_SHORT).show();
-                }
-                /*Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
-                intent.putExtra("blogLink", blog.getLink());
-                startActivity(intent);*/
+                    BlogItem blogItem = (BlogItem) adapter.getItem(position);//获取博客对象
+                    Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
+                    intent.putExtra("blogLink", blogItem.getLink());
+                    startActivity(intent);
 
-                /**
-                 * 用于设置当前活动出现或者退出的动画，放在startActivity和finish之后
-                 */
-                //getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+                    /**
+                     * 用于设置当前活动出现或者退出的动画，放在startActivity和finish之后
+                     */
+                    getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+                }
 
             }
         });
