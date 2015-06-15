@@ -103,9 +103,10 @@ public class RefreshTask {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(context, "网络信号不佳", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "网络信号不佳", Toast.LENGTH_SHORT).show();
+                listView.onLoadMoreComplete();
                 swipeLayout.setRefreshing(false);
-                listView.setCanLoadMore(false);//设置为不可加载状态
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
 

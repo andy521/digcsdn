@@ -193,4 +193,10 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 		public void onLoadMore();
 	}
 
+	public void setProgressBar(boolean flag){
+		if (flag){
+			mProgressBarLoadMore.setVisibility(VISIBLE);
+		}else mProgressBarLoadMore.setVisibility(GONE);
+	}
+
 }

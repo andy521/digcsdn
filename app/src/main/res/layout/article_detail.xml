@@ -20,13 +20,7 @@
         ></com.bob.digcsdn.view.LoadMoreListView>
     <!--博客内容使用listView是何居心？？？-->
 
-    <ProgressBar
-        android:id="@+id/pro_article_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateOnly="true"
-        android:visibility="visible" />
+    <include layout="@layout/custom_progress"/>
     <!--ProgressBar默认为圆圈-->
 
     <LinearLayout

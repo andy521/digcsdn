@@ -84,7 +84,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initWidget() {
-        progressBar = (ProgressBar) getView().findViewById(R.id.pro_blog_main);
+        progressBar = (ProgressBar) getView().findViewById(R.id.pro_common_content);
         swipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh);
         swipeLayout.setOnRefreshListener(this);//下拉组件的事件监听
 

@@ -38,6 +38,8 @@
         android:indeterminateDrawable="@drawable/costum_progress_bar"
         android:padding="3dp"
         android:visibility="gone" />
+    <!--indeterminate可自定义ProgressBar-->
+
     <TextView android:id="@+id/no_more_textView"
         android:layout_width="wrap_content"
         android:layout_height="36dp"

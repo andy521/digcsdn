@@ -3,11 +3,9 @@ package com.bob.digcsdn.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,7 +17,6 @@ import com.bob.digcsdn.adapter.BlogDetailAdapter;
 import com.bob.digcsdn.bean.Blog;
 import com.bob.digcsdn.util.Constants;
 import com.bob.digcsdn.util.JsoupUtil;
-import com.bob.digcsdn.util.LogUtil;
 import com.bob.digcsdn.util.VolleyUtil;
 import com.bob.digcsdn.view.LoadMoreListView;
 
@@ -64,7 +61,7 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
 
     //初始化控件
     private void initWidget() {
-        progressBar = (ProgressBar) findViewById(R.id.pro_article_content);
+        progressBar = (ProgressBar) findViewById(R.id.pro_common_content);
         reloadBtn = (Button) findViewById(R.id.bt_article_reLoad);
         reloadView = findViewById(R.id.ll_article_reLoad);
         backBtn =  findViewById(R.id.img_article_detail_back);
@@ -104,9 +101,8 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.pro_article_content:
-                reloadView.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
+            case R.id.bt_article_reLoad:
+                executeRefresh(FIRST);
                 break;
             case R.id.img_article_detail_back:
                 finish();
@@ -129,9 +125,12 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
             public void onResponse(String html) {
                 List<Blog> blogs= JsoupUtil.getContent(html);
                 if (blogs.size()== 0){
-                    if (refreshType== FIRST)
+                    if (refreshType== FIRST){
                         Toast.makeText(getApplicationContext(), "网络信号不佳",
                                 Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        reloadView.setVisibility(View.VISIBLE);
+                    }
                     else listView.setCanLoadMore(false);
                 }
 
@@ -141,11 +140,13 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
                     listView.setCanLoadMore(false);
 
                 progressBar.setVisibility(View.INVISIBLE);
+                reloadView.setVisibility(View.INVISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                listView.setCanLoadMore(false);
+                progressBar.setVisibility(View.INVISIBLE);
+                reloadView.setVisibility(View.VISIBLE);
             }
         });
         VolleyUtil.getQueue().add(htmlRequest);
