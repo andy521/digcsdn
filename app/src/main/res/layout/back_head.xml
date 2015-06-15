@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
+            android:layout_marginLeft="8dp"
             android:background="@drawable/back_selector" />
 
 
@@ -24,15 +24,13 @@
             android:layout_gravity="center_vertical"
             android:src="@mipmap/vertical_divider_line" />
 
-
-        <TextView
-            android:id="@+id/tv_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
-
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20sp"></TextView>
 </LinearLayout>

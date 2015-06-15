@@ -36,7 +36,7 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
     private View reloadView;
     private Button reloadBtn;
 
-    private ImageView backBtn, commentBtn;//评论和回退按钮
+    private View backBtn, commentBtn;//评论和回退按钮
 
     public String url;
     private String fileName;
@@ -67,8 +67,8 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
         progressBar = (ProgressBar) findViewById(R.id.pro_article_content);
         reloadBtn = (Button) findViewById(R.id.bt_article_reLoad);
         reloadView = findViewById(R.id.ll_article_reLoad);
-        backBtn = (ImageView) findViewById(R.id.img_article_detail_back);
-        commentBtn = (ImageView) findViewById(R.id.img_comment);
+        backBtn =  findViewById(R.id.img_article_detail_back);
+        commentBtn = findViewById(R.id.img_comment);
         listView = (LoadMoreListView) findViewById(R.id.list_article_view);
         listView.setAdapter(blogDetailAdapter);
     }

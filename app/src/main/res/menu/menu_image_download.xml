@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ImageActivity">
+    <group android:id="@+id/group1">
+        <item android:id="@+id/mi1"
+            android:title="返回"/>
+
+        <item android:id="@+id/mi2"
+            android:title="下载"/>
+    </group>
+</menu>

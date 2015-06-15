@@ -5,16 +5,17 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:id="@+id/bt_back"
+        android:id="@+id/img_article_detail_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/img_article_detail_back"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/back_selector" />
 
         <ImageView
@@ -25,20 +26,27 @@
             android:src="@mipmap/vertical_divider_line" />
 
     </LinearLayout>
+
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
     <!--可以使用一个权重为1的控件来填充布局-->
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/img_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/comment_selector" />
+        android:layout_width="35dp"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/comment_selector" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

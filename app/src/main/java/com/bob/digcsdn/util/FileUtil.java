@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
@@ -15,8 +16,7 @@ import java.nio.charset.Charset;
  */
 public class FileUtil {
     public static String filePath = android.os.Environment
-            .getExternalStorageState() + "/BobBlog";//文件存储路径
-
+            .getExternalStorageDirectory() + "/DigCSDN";//文件存储路径
 
     public static String getFileName(String fileName) {
         //去除url中多余的字符，用来得到简单的文件名
@@ -54,18 +54,34 @@ public class FileUtil {
 
     /**
      * 位图bitmap的存储
+     *
      * @param bmp
      * @param url
      * @return
      */
     public static boolean write2SdCard(Bitmap bmp, String url) {
-        try{
-            write2SdCard(bitmap2InputStream(bmp), getFileName(url));
-            return true;
-        }catch(Exception e){
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            InputStream is = bitmap2InputStream(bmp);
+
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath
+                    + "/" + getFileName(url));
+            byte[] buffer = new byte[512];
+            int count = 0;
+            while ((count = is.read(buffer)) > 0) {
+                fileOutputStream.write(buffer, 0, count);
+            }
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            is.close();
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+        return true;
     }
 
     /**
@@ -90,7 +106,7 @@ public class FileUtil {
         return new ByteArrayInputStream(bitmap2Bytes(bm));
     }
 
-    public static String getFileContent(Context context, String fileName){//应该是文件的全限定名
+    public static String getFileContent(Context context, String fileName) {//应该是文件的全限定名
         String content = "";
         try {
             // 把数据从文件中读入内存
