@@ -19,6 +19,7 @@ import com.bob.digcsdn.adapter.BlogListAdapter;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.bean.Page;
 import com.bob.digcsdn.db.BlogService;
+import com.bob.digcsdn.util.Constants;
 import com.bob.digcsdn.util.LogUtil;
 import com.bob.digcsdn.util.RefreshTask;
 import com.bob.digcsdn.util.UrlUtil;
@@ -123,13 +124,13 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {//刷新监听
         page.setPageStart();//默认从第二页开始
         new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout, progressBar).
-                execute(UrlUtil.getRefreshBlogListURL(blogType), RefreshTask.REFRESH);
+                execute(UrlUtil.getRefreshBlogListURL(blogType), Constants.DEF_TASK_TYPE.REFRESH);
     }
 
     @Override
     public void onLoadMore() {//加载监听
         Log.i("refreshitem", blogType + " " + page.getCurrentPage());
         new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout, progressBar).
-                execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), RefreshTask.LOAD);
+                execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), Constants.DEF_TASK_TYPE.LOAD);
     }
 }

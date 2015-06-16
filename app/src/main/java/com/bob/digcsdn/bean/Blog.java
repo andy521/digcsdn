@@ -1,6 +1,7 @@
 package com.bob.digcsdn.bean;
 
 /**
+ * Created by bob on 15-6-11.
  * 博客内容都是临时在线获取的
  * 注意：这只是博客的一种条目，由state决定它起作用的是哪一个
  */

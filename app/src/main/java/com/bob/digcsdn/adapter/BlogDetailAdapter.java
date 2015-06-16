@@ -33,15 +33,14 @@ public class BlogDetailAdapter extends BaseAdapter {
 	private List<Blog> list;
 
 	private SpannableStringBuilder htmlSpannable;
-	private ImageLoading imageLoader = ImageLoading.getInstance(context);
+	private ImageLoading imageLoader;
 
 	public BlogDetailAdapter(Context context) {
 		super();
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
-		list = new ArrayList<Blog>();
-
-
+		list = new ArrayList<>();
+		imageLoader= ImageLoading.getInstance(context);
 	}
 
 	public void setList(List<Blog> list) {
@@ -91,7 +90,7 @@ public class BlogDetailAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {//获取条目布局及view对象
-		Blog item = list.get(position);
+		Blog item = list.get(position);//在初始化holder的时候，需要使用到具体条目的类型
 		if (null == convertView) {
 			holder = new ViewHolder();
 			switch (item.getState()) {

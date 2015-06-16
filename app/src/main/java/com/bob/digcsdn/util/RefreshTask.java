@@ -36,9 +36,6 @@ public class RefreshTask {
     private Context context;
     private int blogType = 0;//默认博客类型为首页
 
-    public static final int REFRESH = 0;
-    public static final int LOAD = 1;
-
     public RefreshTask(Context context, BlogService service, int blogType, BlogListAdapter adapter, SwipeRefreshLayout swipeLayout, LoadMoreListView listView, View noBlogLayout, ProgressBar progressBar) {
         this.context = context;
         this.blogType = blogType;
@@ -61,7 +58,7 @@ public class RefreshTask {
                 JsoupUtil.getBlogItemList(blogType, html, new JsonCallBackListener() {
                     @Override
                     public void onFinish(final List<BlogItem> list) {//子线程里
-                        if (taskType== REFRESH){
+                        if (taskType== Constants.DEF_TASK_TYPE.REFRESH){
                             /**
                              * 既然放到子线程里了，就应该注意线程同步安全的问题
                              */
@@ -76,7 +73,7 @@ public class RefreshTask {
                                 if (list.size() == 0 || list.size() > 20) {//重复或者空列表，则停止加载
                                     listView.setCanLoadMore(false);//停止加载
                                 }
-                                if (taskType == REFRESH) {//刷新,这里只会存上第一页的博客，因为在加载的时候，并没有存库
+                                if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {//刷新,这里只会存上第一页的博客，因为在加载的时候，并没有存库
 
                                     adapter.notifyDataSetChanged();
                                     swipeLayout.setRefreshing(false);//刷新完毕，停止刷新动画

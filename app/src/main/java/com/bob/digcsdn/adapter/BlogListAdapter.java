@@ -87,7 +87,7 @@ public class BlogListAdapter extends BaseAdapter {
             //避免反复去资源文件中加载widget
         }
 
-        BlogItem item= list.get(position);
+        BlogItem item= list.get(position);//为布局中的控件进行赋值
         if (item!= null){
             holder.title.setText(item.getTitle());
             holder.content.setText(item.getContent());

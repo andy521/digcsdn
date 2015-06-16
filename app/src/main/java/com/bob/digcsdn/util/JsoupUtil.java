@@ -3,13 +3,17 @@ package com.bob.digcsdn.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.bob.digcsdn.activity.CommentsActivity;
 import com.bob.digcsdn.bean.Blog;
 import com.bob.digcsdn.bean.BlogItem;
+import com.bob.digcsdn.bean.Comment;
 import com.bob.digcsdn.interfaces.JsonCallBackListener;
 
 /**
@@ -22,7 +26,7 @@ public class JsoupUtil {
 	public static boolean multiPages = false; // 多页
 	private static final String BLOG_URL = "http://blog.csdn.net"; // CSDN博客地址
 
-	// 链接样式文件，代码块高亮的处理,不懂
+	// 链接样式文件，代码块高亮的处理,搞不懂，也就是根据字符串里的部分分析代码部分
 	public final static String linkCss = "<script type=\"text/javascript\" src=\"file:///android_asset/shCore.js\"></script>"
 			+ "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushJScript.js\"></script>"
 			+ "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushJava.js\"></script>"
@@ -55,7 +59,7 @@ public class JsoupUtil {
 				Elements blogList = doc.getElementsByClass("article_item");
 				// Log.e("elements--->", blogList.toString());
 
-				for (Element blogItem : blogList) {//一一遍历每一个article_item
+				for (Element blogItem : blogList) {//一一遍历每一个article_item，从而分析出每一个item的信息，得到一个个的BlogItem
 					BlogItem item = new BlogItem();
 					String title = blogItem.select("h1").text(); //得到<h1></h1>节点里的内容，也就是当前文章标题，这里类似于xml的pull解析
 					// System.out.println("title----->" + title);
@@ -82,7 +86,7 @@ public class JsoupUtil {
 					list.add(item);
 				}
 
-				listener.onFinish(list);
+				listener.onFinish(list);//接口回调，送出数据
 			}
 		}.start();
 	}
@@ -93,7 +97,7 @@ public class JsoupUtil {
 	 * @param str
 	 * @return
 	 */
-	public static List<Blog> getContent( String str) {
+	public static List<Blog> getContent( String str) {//对一篇文章的分析，这个list里的Blog代表博文的各个组成部分，详情请见Blog实体类中
 		List<Blog> list = new ArrayList<>();
 
 		// 获取文档内容
@@ -219,20 +223,19 @@ public class JsoupUtil {
 	/**
 	 * 获取博文评论列表
 	 * 
-	 * @param str
-	 *            json字符串
+	 * @param json
+	 *            html请求返回的是json字符串....总算是要复习到json数据的解析了
 	 * @return
-	 *//*
-	public static List<Comment> getBlogCommentList(String str, int pageIndex,
+	 */
+	public static List<Comment> getBlogCommentList(JSONObject jsonObject, int pageIndex,
 			int pageSize) {
-		List<Comment> list = new ArrayList<Comment>();
+		List<Comment> list = new ArrayList<>();
 		try {
 			// 创建一个json对象
-			JSONObject jsonObject = new JSONObject(str);
 			JSONArray jsonArray = jsonObject.getJSONArray("list"); // 获取json数组
 			int index = 0;
 			int len = jsonArray.length();
-			BlogCommentActivity.commentCount = String.valueOf(len); // 评论条数
+			CommentsActivity.commentCount = String.valueOf(len); // 评论条数
 			// 如果评论数大于20
 			if (len > 20) {
 				index = (pageIndex * pageSize) - 20;
@@ -272,18 +275,18 @@ public class JsoupUtil {
 				list.add(comment);
 			}
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 
-	*//**
+	/*
 	 * 获得博主个人资料
 	 * 
 	 * @param str
 	 * @return
-	 *//*
+	 */
 	public static Blogger getBloggerInfo(String str) {
 
 		
@@ -329,7 +332,7 @@ public class JsoupUtil {
 		return blogger;
 	}
 
-	*//**
+	/**
 	 * 半角转换为全角 全角---指一个字符占用两个标准字符位置。 半角---指一字符占用一个标准的字符位置。
 	 * 
 	 * @param input
