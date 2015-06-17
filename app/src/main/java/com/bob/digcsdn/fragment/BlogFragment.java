@@ -76,6 +76,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
              * 这里只需要在第一次进入的时候访问网络加载数据即可，二次回来的时候，成员变量不会被销毁
              * 因此adapter只要保存完好，数据就不会丢失
              */
+            adapter.setList(blogService.loadBlog(blogType));
             onRefresh();
         } else {
             LogUtil.i("back", "into " + blogType);
@@ -131,7 +132,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
 
-    public void execute(String url, final int taskType) {
+    public void executeTask(String url, final int taskType) {
 
         StringRequest htmlRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -156,10 +157,11 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             public void run() {//主线程里
                                 if (list.size() == 0 || list.size() > 20) {//重复或者空列表，则停止加载
                                     blogListView.setCanLoadMore(false);//停止加载
+                                    list.clear();
                                     canLoadMore= false;
                                 }
                                 if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {//刷新,这里只会存上第一页的博客，因为在加载的时候，并没有存库
-
+                                    blogListView.setCanLoadMore(true);
                                     adapter.notifyDataSetChanged();
                                     swipeLayout.setRefreshing(false);//刷新完毕，停止刷新动画
 
@@ -198,12 +200,12 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {//刷新监听
         page.setPageStart();//默认从第二页开始
-        execute(UrlUtil.getRefreshBlogListURL(blogType), Constants.DEF_TASK_TYPE.REFRESH);
+        executeTask(UrlUtil.getRefreshBlogListURL(blogType), Constants.DEF_TASK_TYPE.REFRESH);
     }
 
     @Override
     public void onLoadMore() {//加载监听
         Log.i("refreshitem", blogType + " " + page.getCurrentPage());
-        execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), Constants.DEF_TASK_TYPE.LOAD);
+        executeTask(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), Constants.DEF_TASK_TYPE.LOAD);
     }
 }

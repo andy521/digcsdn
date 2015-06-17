@@ -5,12 +5,12 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f3aae17d-5670-4d71-a01f-d04ae53089c7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/util/RefreshTask.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/fragment/BlogFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/fragment/BlogFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/adapter/TabPagerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/adapter/TabPagerAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DigCSDN.iws" />
@@ -37,13 +37,13 @@
       <file leaf-file-name="BlogFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/fragment/BlogFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="8.194611">
-              <caret line="158" column="55" selection-start-line="158" selection-start-column="55" selection-end-line="158" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.4011976">
+              <caret line="163" column="68" selection-start-line="163" selection-start-column="68" selection-end-line="163" selection-end-column="68" />
               <folding>
-                <element signature="e#5906#7439#0" expanded="true" />
-                <element signature="e#7438#7439#0" expanded="true" />
-                <element signature="e#7522#7909#0" expanded="true" />
-                <element signature="e#7908#7909#0" expanded="true" />
+                <element signature="e#5971#7624#0" expanded="true" />
+                <element signature="e#7623#7624#0" expanded="true" />
+                <element signature="e#7707#8094#0" expanded="true" />
+                <element signature="e#8093#8094#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2822,10 +2822,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
           <folding>
-            <element signature="e#1048#1049#0" expanded="true" />
-            <element signature="e#1080#1081#0" expanded="true" />
-            <element signature="e#1554#1555#0" expanded="true" />
-            <element signature="e#1605#1606#0" expanded="true" />
+            <element signature="e#1048#1049#0" expanded="false" />
+            <element signature="e#1080#1081#0" expanded="false" />
+            <element signature="e#1554#1555#0" expanded="false" />
+            <element signature="e#1605#1606#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2922,13 +2922,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bob/digcsdn/fragment/BlogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.194611">
-          <caret line="158" column="55" selection-start-line="158" selection-start-column="55" selection-end-line="158" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.4011976">
+          <caret line="163" column="68" selection-start-line="163" selection-start-column="68" selection-end-line="163" selection-end-column="68" />
           <folding>
-            <element signature="e#5906#7439#0" expanded="true" />
-            <element signature="e#7438#7439#0" expanded="true" />
-            <element signature="e#7522#7909#0" expanded="true" />
-            <element signature="e#7908#7909#0" expanded="true" />
+            <element signature="e#5971#7624#0" expanded="true" />
+            <element signature="e#7623#7624#0" expanded="true" />
+            <element signature="e#7707#8094#0" expanded="true" />
+            <element signature="e#8093#8094#0" expanded="true" />
           </folding>
         </state>
       </provider>
