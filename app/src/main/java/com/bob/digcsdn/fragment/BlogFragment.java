@@ -13,24 +13,33 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bob.digcsdn.R;
 import com.bob.digcsdn.activity.BlogDetailActivity;
 import com.bob.digcsdn.adapter.BlogListAdapter;
+import com.bob.digcsdn.adapter.TabPagerAdapter;
 import com.bob.digcsdn.bean.BlogItem;
 import com.bob.digcsdn.bean.Page;
 import com.bob.digcsdn.db.BlogService;
+import com.bob.digcsdn.interfaces.JsonCallBackListener;
 import com.bob.digcsdn.util.Constants;
+import com.bob.digcsdn.util.JsoupUtil;
 import com.bob.digcsdn.util.LogUtil;
-import com.bob.digcsdn.util.RefreshTask;
 import com.bob.digcsdn.util.UrlUtil;
+import com.bob.digcsdn.util.VolleyUtil;
 import com.bob.digcsdn.view.LoadMoreListView;
+
+import java.util.List;
 
 /**
  * Created by bob on 15-4-21.
  */
 public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener {
     private int blogType = 0;//默认的是首页
-    private boolean isLoad = false;//是否正在处于加载
+    private boolean isLoad = false;//是否已经被加载过了
+    private Boolean canLoadMore = true;
 
     private View noBlogLayout;//无数据显示
     private ProgressBar progressBar;//进度条预览
@@ -61,7 +70,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         super.onActivityCreated(savedInstanceState);
         initWidget();//初始化控件
         if (!isLoad) {
-            LogUtil.i("flag", "into " + blogType);
+            LogUtil.i("flag", "into " + TabPagerAdapter.TITLE[blogType]);
             isLoad = true;
             /**
              * 这里只需要在第一次进入的时候访问网络加载数据即可，二次回来的时候，成员变量不会被销毁
@@ -70,9 +79,11 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             onRefresh();
         } else {
             LogUtil.i("back", "into " + blogType);
+            blogListView.setCanLoadMore(canLoadMore);
             progressBar.setVisibility(View.INVISIBLE);
-            if (blogService.loadBlog(blogType).size() == 0)
+            if (blogService.loadBlog(blogType).size() == 0) {
                 noBlogLayout.setVisibility(View.VISIBLE);//恢复noBlogLayout应有的状态
+            }
         }
 
     }
@@ -120,17 +131,79 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
 
+    public void execute(String url, final int taskType) {
+
+        StringRequest htmlRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String html) {//主线程里
+                progressBar.setVisibility(View.INVISIBLE);
+                noBlogLayout.setVisibility(View.INVISIBLE);
+
+                JsoupUtil.getBlogItemList(blogType, html, new JsonCallBackListener() {
+                    @Override
+                    public void onFinish(final List<BlogItem> list) {//子线程里
+                        if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {
+                            /**
+                             * 既然放到子线程里了，就应该注意线程同步安全的问题
+                             */
+                            adapter.setList(list);//将listView里的数据重置为解析得到的list
+                            blogService.delete(blogType);//先删除库中已有的博客内容
+                            blogService.insert(adapter.getList());//存库
+                        }
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {//主线程里
+                                if (list.size() == 0 || list.size() > 20) {//重复或者空列表，则停止加载
+                                    blogListView.setCanLoadMore(false);//停止加载
+                                    canLoadMore= false;
+                                }
+                                if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {//刷新,这里只会存上第一页的博客，因为在加载的时候，并没有存库
+
+                                    adapter.notifyDataSetChanged();
+                                    swipeLayout.setRefreshing(false);//刷新完毕，停止刷新动画
+
+                                    if (adapter.getCount() == 0)
+                                        noBlogLayout.setVisibility(View.VISIBLE);
+                                } else {//加载
+                                    /**
+                                     * 在主页中加载超页之后，不再分页显示,分页的时候按照每页15条显示
+                                     */
+                                    LogUtil.i("加载的数量", list.size() + "");
+                                    if (list.size() <= 20) {
+                                        adapter.addList(list);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    blogListView.onLoadMoreComplete();//本次加载完毕
+                                    BlogFragment.page.addPage();//加载完毕后指向下一页
+                                }
+                            }
+                        });
+                    }
+                });//Jsoup解析html
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getActivity(), "网络信号不佳", Toast.LENGTH_SHORT).show();
+                blogListView.onLoadMoreComplete();
+                swipeLayout.setRefreshing(false);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        VolleyUtil.getQueue().add(htmlRequest);//队列里肯定是按顺序执行的，也不用担心多线程访问的线程安全问题
+    }
+
     @Override
     public void onRefresh() {//刷新监听
         page.setPageStart();//默认从第二页开始
-        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout, progressBar).
-                execute(UrlUtil.getRefreshBlogListURL(blogType), Constants.DEF_TASK_TYPE.REFRESH);
+        execute(UrlUtil.getRefreshBlogListURL(blogType), Constants.DEF_TASK_TYPE.REFRESH);
     }
 
     @Override
     public void onLoadMore() {//加载监听
         Log.i("refreshitem", blogType + " " + page.getCurrentPage());
-        new RefreshTask(getActivity(), blogService, blogType, adapter, swipeLayout, blogListView, noBlogLayout, progressBar).
-                execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), Constants.DEF_TASK_TYPE.LOAD);
+        execute(UrlUtil.getBlogListURL(blogType, page.getCurrentPage()), Constants.DEF_TASK_TYPE.LOAD);
     }
 }

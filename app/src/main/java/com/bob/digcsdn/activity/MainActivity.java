@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
          * 设置setOffscreenPageLimit()来达到多个页面缓存  ps:可以监听Fragment的生命周期来
          * 达到调试目的
          */
-        pager.setOffscreenPageLimit(0);//设置预加载页数，因为都是从网络上获取数据，因此预加载意义不大
+        pager.setOffscreenPageLimit(0);//设置预加载页数,第一次进入程序起作用，因为都是从网络上获取数据，因此预加载意义不大
         //当然就缓存一页，因为每次的加载都需要保证列表是最新的
         pager.setAdapter(tabAdapter);
 

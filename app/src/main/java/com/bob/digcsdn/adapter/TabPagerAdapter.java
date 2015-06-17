@@ -24,6 +24,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
             case 0: break;
             default:break;
         }
+
         LogUtil.i("getItem", position+"");
         return new BlogFragment(position);
     }
