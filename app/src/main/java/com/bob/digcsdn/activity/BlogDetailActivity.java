@@ -55,7 +55,7 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
     private void init() {
         blogDetailAdapter = new BlogDetailAdapter(this);
         url = getIntent().getExtras().getString("blogLink");
-        fileName = url.substring(url.lastIndexOf("/") + 1);
+        fileName = url.substring(url.lastIndexOf("/") + 1);//fileName表示的是博客链接中最后一个节点，即博客代号
 
     }
 
@@ -107,8 +107,12 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
             case R.id.img_article_detail_back:
                 finish();
                 break;
-            case R.id.img_comment:
-                Toast.makeText(BlogDetailActivity.this, "comment", Toast.LENGTH_SHORT).show();
+            case R.id.img_comment:{
+                Intent intent= new Intent(BlogDetailActivity.this, CommentsActivity.class);
+                intent.putExtra("fileName", fileName);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+            }
         }
     }
 

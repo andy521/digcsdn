@@ -74,7 +74,7 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Comment item = list.get(position);
-        if (convertView != null) {
+        if (null== convertView) {
             holder = new ViewHolder();
             switch (item.getType()) {
                 case Constants.DEF_COMMENT_TYPE.PARENT:

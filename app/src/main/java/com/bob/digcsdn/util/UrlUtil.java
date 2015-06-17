@@ -123,8 +123,7 @@ public class UrlUtil {
      * @return
      */
     public static String getCommentListURL(String filename, String pageIndex) {
-        return "http://blog.csdn.net/wwj_748/comment/list/" + filename
+        return "http://blog.csdn.net/bob1993_dev/comment/list/" + filename
                 + "?page=" + pageIndex;
     }
-
 }

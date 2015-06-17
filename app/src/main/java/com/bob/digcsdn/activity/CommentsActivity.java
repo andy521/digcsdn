@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.bob.digcsdn.R;
 import com.bob.digcsdn.adapter.CommentAdapter;
 import com.bob.digcsdn.bean.Comment;
@@ -41,9 +42,9 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
 
     private ProgressBar progressBar;
     private ImageView backBtn;
-    private TextView tvComment;
     private Button reloadBtn;
     private View reloadView;
+    private TextView tvComment;
 
     public static String commentCount = "";
     private Page page;
@@ -58,6 +59,7 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
         init();
         initWidget();
         initEvent();
+        executeRefresh(Constants.DEF_TASK_TYPE.REFRESH);
     }
 
     private void init() {
@@ -71,13 +73,15 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
         reloadBtn = (Button) findViewById(R.id.bt_comment_reLoad);
         reloadView = findViewById(R.id.ll_comment_reLoad);
         backBtn = (ImageView) findViewById(R.id.img_comment_back);
+        tvComment= (TextView) findViewById(R.id.tv_comment);
+
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeLayout.setOnRefreshListener(this);//下拉组件的事件监听
 
         // set style for swipeRefreshLayout
         swipeLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
                 android.R.color.holo_blue_bright);
-        listView = (LoadMoreListView) findViewById(R.id.list_article_view);
+        listView = (LoadMoreListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
     }
 
@@ -106,33 +110,41 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
     }
 
     private void executeRefresh(final int taskType) {
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(UrlUtil.getCommentListURL(fileName, page.getCurrentPage()), null, new Response.Listener<JSONObject>() {
+        StringRequest jsonRequest = new StringRequest(UrlUtil.getCommentListURL(fileName, page.getCurrentPage()), new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject json) {
+            public void onResponse(String json) {
                 progressBar.setVisibility(View.INVISIBLE);
                 reloadView.setVisibility(View.INVISIBLE);
                 List<Comment> comments = JsoupUtil.getBlogCommentList(json, Integer.parseInt(page.getCurrentPage()), pageSize);
 
                 if (comments.size() == 0) {//重复或者空列表，则停止加载
-                    listView.setCanLoadMore(false);//停止加载
+                    Toast.makeText(CommentsActivity.this, "无更多评论", Toast.LENGTH_SHORT).show();
+                    listView.onLoadMoreComplete();//停止加载
+                    swipeLayout.setRefreshing(false);//停止刷新
+                    tvComment.setText("共有评论:"+commentCount);
                 }
-                if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {
+                else if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {
                     adapter.setList(comments);
                     adapter.notifyDataSetChanged();
+                    swipeLayout.setRefreshing(false);
+                    page.setPage(2);
+                    tvComment.setText("共有评论:"+commentCount);
 
-                    if (adapter.getCount() == 0) {
-                        Toast.makeText(CommentsActivity.this, "无评论", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
+                } else {//加载需要做的事情
                     adapter.addList(comments);
+                    page.addPage();
+                    pageIndex++;
                     adapter.notifyDataSetChanged();
                     listView.onLoadMoreComplete();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError) {//无网络需要做的事情
+                volleyError.printStackTrace();
                 progressBar.setVisibility(View.INVISIBLE);
+                listView.onLoadMoreComplete();//停止加载
+                swipeLayout.setRefreshing(false);//停止刷新
                 reloadView.setVisibility(View.VISIBLE);
             }
         });

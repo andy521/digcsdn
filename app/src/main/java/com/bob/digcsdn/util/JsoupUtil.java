@@ -227,11 +227,12 @@ public class JsoupUtil {
 	 *            html请求返回的是json字符串....总算是要复习到json数据的解析了
 	 * @return
 	 */
-	public static List<Comment> getBlogCommentList(JSONObject jsonObject, int pageIndex,
+	public static List<Comment> getBlogCommentList(String json, int pageIndex,
 			int pageSize) {
 		List<Comment> list = new ArrayList<>();
 		try {
-			// 创建一个json对象
+			// 创建一个json数组
+			JSONObject jsonObject= new JSONObject(json);
 			JSONArray jsonArray = jsonObject.getJSONArray("list"); // 获取json数组
 			int index = 0;
 			int len = jsonArray.length();
@@ -251,12 +252,12 @@ public class JsoupUtil {
 
 			for (int i = index; i < len; i++) {
 				JSONObject item = jsonArray.getJSONObject(i);
-				String commentId = item.getString("CommentId");
-				String content = item.getString("Content");
-				String username = item.getString("UserName");
-				String parentId = item.getString("ParentId");
-				String postTime = item.getString("PostTime");
-				String userface = item.getString("Userface");
+				String commentId = item.getString("CommentId");//评论id
+				String content = item.getString("Content");//评论内容
+				String username = item.getString("UserName");//用户名称
+				String parentId = item.getString("ParentId");//父节点id
+				String postTime = item.getString("PostTime");//提交时间
+				String userFace = item.getString("Userface");//用户头像（子评论里不显示头像）
 
 				Comment comment = new Comment();
 				comment.setCommentId(commentId);
@@ -264,7 +265,7 @@ public class JsoupUtil {
 				comment.setUsername(username);
 				comment.setParentId(parentId);
 				comment.setPostTime(postTime);
-				comment.setUserface(userface);
+				comment.setUserface(userFace);
 
 				if (parentId.equals("0")) {
 					// 如果parentId为0的话，表示它是评论的topic
@@ -286,7 +287,7 @@ public class JsoupUtil {
 	 * 
 	 * @param str
 	 * @return
-	 */
+
 	public static Blogger getBloggerInfo(String str) {
 
 		
@@ -330,7 +331,7 @@ public class JsoupUtil {
 		blogger.setStatistics(statistics);
 
 		return blogger;
-	}
+	}*/
 
 	/**
 	 * 半角转换为全角 全角---指一个字符占用两个标准字符位置。 半角---指一字符占用一个标准的字符位置。
