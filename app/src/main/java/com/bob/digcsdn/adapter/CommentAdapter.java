@@ -62,7 +62,7 @@ public class CommentAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position) {//0~size-1
         return list.get(position);
     }
 

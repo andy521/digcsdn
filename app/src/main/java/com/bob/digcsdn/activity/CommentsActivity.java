@@ -46,7 +46,7 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
     private View reloadView;
     private TextView tvComment;
 
-    public static String commentCount = "";
+    public static String commentCount = "0";
     private Page page;
     private String fileName;
     private int pageIndex = 1;
@@ -121,14 +121,14 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
                     Toast.makeText(CommentsActivity.this, "无更多评论", Toast.LENGTH_SHORT).show();
                     listView.onLoadMoreComplete();//停止加载
                     swipeLayout.setRefreshing(false);//停止刷新
-                    tvComment.setText("共有评论:"+commentCount);
+                    tvComment.setText("共有评论: "+commentCount);
                 }
                 else if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {
                     adapter.setList(comments);
                     adapter.notifyDataSetChanged();
                     swipeLayout.setRefreshing(false);
                     page.setPage(2);
-                    tvComment.setText("共有评论:"+commentCount);
+                    tvComment.setText("共有评论: "+commentCount);
 
                 } else {//加载需要做的事情
                     adapter.addList(comments);

@@ -230,10 +230,13 @@ public class JsoupUtil {
 	public static List<Comment> getBlogCommentList(String json, int pageIndex,
 			int pageSize) {
 		List<Comment> list = new ArrayList<>();
+		LogUtil.i("jsonString", json);
 		try {
 			// 创建一个json数组
 			JSONObject jsonObject= new JSONObject(json);
+			LogUtil.i("jsonObject", jsonObject.toString());
 			JSONArray jsonArray = jsonObject.getJSONArray("list"); // 获取json数组
+			LogUtil.i("jsonArray", jsonArray.toString());
 			int index = 0;
 			int len = jsonArray.length();
 			CommentsActivity.commentCount = String.valueOf(len); // 评论条数
@@ -250,7 +253,8 @@ public class JsoupUtil {
 				len = pageIndex * pageSize;
 			}
 
-			for (int i = index; i < len; i++) {
+			for (int i = len-1; i >= index; i--) {//遍历JsonObject里的{}
+
 				JSONObject item = jsonArray.getJSONObject(i);
 				String commentId = item.getString("CommentId");//评论id
 				String content = item.getString("Content");//评论内容
