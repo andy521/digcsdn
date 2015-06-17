@@ -50,10 +50,10 @@ public class LeftMenuFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0://个人设置
-                        skipActivity(SettingsActivity.class);
+                        Toast.makeText(context, "本功能将在后续版本中出现", Toast.LENGTH_SHORT).show();
                         break;
                     case 1://用户切换
-                        Toast.makeText(context, "本功能将在新的版本中出现", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "本功能将在后续版本中出现", Toast.LENGTH_SHORT).show();
                         break;
                     case 2://检查更新
                         Toast.makeText(context, "正在检查中...", Toast.LENGTH_SHORT).show();

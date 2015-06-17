@@ -60,7 +60,7 @@ public class LogicVerify implements IVerify {
     //的最佳化，最好将上述的4个坐标值也调整一下，使得我们的验证码能最恰当地占据整个底板
 
     //将一些常量应用到本类的成员变量上
-    //settings decided by the layout xml
+    //activity_settings decided by the layout xml
     //canvas width and height
     private int width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
 

@@ -14,7 +14,7 @@ public class LogoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.logo);
+        setContentView(R.layout.activity_logo);
         img_logo = (ImageView) findViewById(R.id.img_logo);
         AlphaAnimation animation= new AlphaAnimation(0.0f,1.0f);//透明度渐变动画
         animation.setDuration(2000);

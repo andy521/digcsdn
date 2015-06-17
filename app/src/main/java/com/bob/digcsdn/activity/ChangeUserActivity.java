@@ -11,14 +11,14 @@ import com.bob.digcsdn.R;
 /**
  * Created by bob on 15-4-27.
  */
-public class SettingsActivity extends Activity implements View.OnClickListener {
+public class ChangeUserActivity extends Activity implements View.OnClickListener {
     private TextView tvHead;
     private LinearLayout btBack;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_changeuser);
         initWidget();
         initEvent();
     }
@@ -29,7 +29,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public void initWidget() {
         tvHead = (TextView) findViewById(R.id.tv_head);
-        tvHead.setText("个人设置");
+        tvHead.setText("切换用户");
         btBack = (LinearLayout) findViewById(R.id.bt_back);
 
     }
