@@ -1,6 +1,7 @@
 package com.bob.digcsdn.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import java.util.List;
 /**
  * Created by bob on 15-4-21.
  */
+@SuppressLint("ValidFragment")
 public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener {
     private int blogType = 0;//默认的是首页
     private boolean isLoad = false;//是否已经被加载过了
@@ -177,7 +179,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                                         adapter.notifyDataSetChanged();
                                     }
                                     blogListView.onLoadMoreComplete();//本次加载完毕
-                                    BlogFragment.page.addPage();//加载完毕后指向下一页
+                                    page.addPage();//加载完毕后指向下一页
                                 }
                             }
                         });

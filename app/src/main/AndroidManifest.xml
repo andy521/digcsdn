@@ -25,6 +25,7 @@
         <activity android:name=".activity.ImageActivity"/>
         <activity android:name=".activity.BlogDetailActivity"/>
         <activity android:name=".activity.CommentsActivity"/>
+        <activity android:name=".activity.SearchBlog"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

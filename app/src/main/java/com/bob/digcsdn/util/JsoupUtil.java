@@ -224,7 +224,7 @@ public class JsoupUtil {
 	 * 获取博文评论列表
 	 * 
 	 * @param json
-	 *            html请求返回的是json字符串....总算是要复习到json数据的解析了
+	 *            html请求返回的是json字符串.......总算是要复习到json数据的解析了
 	 * @return
 	 */
 	public static List<Comment> getBlogCommentList(String json, int pageIndex,
@@ -240,16 +240,16 @@ public class JsoupUtil {
 			int index = 0;
 			int len = jsonArray.length();
 			CommentsActivity.commentCount = String.valueOf(len); // 评论条数
-			// 如果评论数大于20
-			if (len > 20) {
-				index = (pageIndex * pageSize) - 20;
+			// 如果评论数大于20,假设有25条数据，应该是第三页，那么就应该index== 40
+			if (len > 20) {//设置起始下标
+				index = (pageIndex * pageSize) - 20;//pageIndex 表示当前页数，pageSize表示每一页的大小
 			}
 
-			if (len < pageSize && pageIndex > 1) {
+			if (len < pageSize && pageIndex > 1) {//不是第一页，并且长度小于20
 				return list;
 			}
 
-			if ((pageIndex * pageSize) < len) {
+			if ((pageIndex * pageSize) < len) {//如果长度大于当前加载的所有最大数据量,就将长度设为最大数据量
 				len = pageIndex * pageSize;
 			}
 

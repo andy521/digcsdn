@@ -50,7 +50,7 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
     private Page page;
     private String fileName;
     private int pageIndex = 1;
-    private int pageSize = 20;
+    private int pageSize = 20;//限制为每页20条数据
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
             case R.id.bt_comment_reLoad:
                 executeRefresh(Constants.DEF_TASK_TYPE.REFRESH);
                 break;
-            case R.id.img_article_detail_back:
+            case R.id.img_comment_back:
                 finish();
                 break;
         }
@@ -133,7 +133,7 @@ public class CommentsActivity extends Activity implements LoadMoreListView.OnLoa
                 } else {//加载需要做的事情
                     adapter.addList(comments);
                     page.addPage();
-                    pageIndex++;
+                    pageIndex++;//页数+1
                     adapter.notifyDataSetChanged();
                     listView.onLoadMoreComplete();
                 }

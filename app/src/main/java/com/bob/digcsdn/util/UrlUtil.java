@@ -118,12 +118,12 @@ public class UrlUtil {
     /**
      * 返回博文评论列表链接
      *
-     * @param filename  文件名
+     * @param filename  表示的是当前文章的代号，从BlogDetailActivity中传送过来的
      * @param pageIndex 页数
      * @return
      */
     public static String getCommentListURL(String filename, String pageIndex) {
         return "http://blog.csdn.net/bob1993_dev/comment/list/" + filename
-                + "?page=" + pageIndex;
+                + "?page=" + pageIndex;//页面
     }
 }

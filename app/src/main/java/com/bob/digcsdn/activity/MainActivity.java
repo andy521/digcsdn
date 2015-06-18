@@ -1,5 +1,6 @@
 package com.bob.digcsdn.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -21,7 +22,7 @@ import com.viewpagerindicator.TabPageIndicator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
     //这里不可以直接引用xml里的颜色值，而需要根据RGB或者ARGB多个参数来构造
 
     private static boolean isExit = false;
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);//在菜单中找到对应空间的item
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(MainActivity.this);//监听
+        searchView.setSubmitButtonEnabled(false);//可提交
+        searchView.setQueryHint("输入文章标题搜索");//静态设置又不好使。。。娘希匹
 
         MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -140,6 +144,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "add_task", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Intent intent= new Intent(this, SearchBlog.class);
+        intent.putExtra("query", query);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
 
