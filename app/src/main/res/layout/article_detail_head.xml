@@ -28,9 +28,14 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/article_title"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_weight="1"
+        />
     <!--可以使用一个权重为1的控件来填充布局-->
 
     <LinearLayout

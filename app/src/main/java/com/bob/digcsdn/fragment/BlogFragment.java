@@ -119,6 +119,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     BlogItem blogItem = (BlogItem) adapter.getItem(position);//获取博客对象
                     Intent intent = new Intent(getActivity(), BlogDetailActivity.class);
                     intent.putExtra("blogLink", blogItem.getLink());
+                    intent.putExtra("blogTitle", blogItem.getTitle());
                     startActivity(intent);
 
                     /**

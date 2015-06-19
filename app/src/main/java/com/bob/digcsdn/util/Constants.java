@@ -4,6 +4,7 @@ package com.bob.digcsdn.util;
  * Created by bob on 15-5-10.
  */
 public class Constants {//存放常量的一个类，ps:禁止使用常量接口
+    public static final String ALL_BLOG_LIST= "100";
 
     public class DEF_BLOG_ITEM_TYPE {//博客内容条目信息分类
         public static final int TITLE = 1; // 标题

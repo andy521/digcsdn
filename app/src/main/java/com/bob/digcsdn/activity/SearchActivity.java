@@ -1,12 +1,14 @@
 package com.bob.digcsdn.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -15,7 +17,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.bob.digcsdn.R;
 import com.bob.digcsdn.adapter.BlogListAdapter;
 import com.bob.digcsdn.bean.BlogItem;
-import com.bob.digcsdn.bean.Page;
 import com.bob.digcsdn.interfaces.JsonCallBackListener;
 import com.bob.digcsdn.util.Constants;
 import com.bob.digcsdn.util.JsoupUtil;
@@ -29,17 +30,16 @@ import java.util.List;
 /**
  * Created by bob on 15-6-18.
  */
-public class SearchBlog extends Activity {
+public class SearchActivity extends Activity {
 
     private ProgressBar progressBar;//进度条预览
     private View backBtn;
+    private TextView title;
 
     private ListView blogListView;  //具有上拉加载的ListView
     private BlogListAdapter adapter; //数据适配器
-    private List<BlogItem> allList;
+    private List<BlogItem>allList;
     private String blogTitle;//被查询的博客标题
-    private Page page;//有甚叼用暂时未知！！！浏览器的博客列表是分页显示的
-    private boolean isFinish= false;//是否加载完毕
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,26 +47,25 @@ public class SearchBlog extends Activity {
         setContentView(R.layout.search_blog);
         init();
         initWidget();
-        while (!isFinish) {
-            LogUtil.i("execu", "jinlaile");
-            executeTask(UrlUtil.getBlogListURL(Constants.DEF_ARTICLE_TYPE.HOME,page.getCurrentPage()));
-            page.addPage();
-        }
-        adapter.setList(query(blogTitle));
-        adapter.notifyDataSetChanged();
+        if (allList.size()> 0){
+            adapter.setList(search(blogTitle));
+            adapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.INVISIBLE);
+        }else executeTask(UrlUtil.getBlogListURL(Constants.DEF_ARTICLE_TYPE.HOME, Constants.ALL_BLOG_LIST));//当然是第一页
     }
 
     private void init() {
         adapter = new BlogListAdapter(this);
         allList = new ArrayList<>();
         blogTitle = getIntent().getExtras().getString("query");
-        page = new Page();
         LogUtil.i("init", "coming");
     }
 
     private void initWidget() {
         progressBar = (ProgressBar) findViewById(R.id.pro_common_content);
         backBtn = findViewById(R.id.bt_back);
+        title= (TextView) findViewById(R.id.tv_head);
+        title.setText(" 搜索 "+blogTitle);
         blogListView = (ListView) findViewById(R.id.list_search_view);
         blogListView.setAdapter(adapter);
 
@@ -82,8 +81,9 @@ public class SearchBlog extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 BlogItem blogItem = (BlogItem) adapter.getItem(position);//获取博客对象
-                Intent intent = new Intent(SearchBlog.this, BlogDetailActivity.class);
+                Intent intent = new Intent(SearchActivity.this, BlogDetailActivity.class);
                 intent.putExtra("blogLink", blogItem.getLink());
+                intent.putExtra("blogTitle", blogItem.getTitle());
                 startActivity(intent);
 
                 /**
@@ -94,12 +94,14 @@ public class SearchBlog extends Activity {
         });
     }
 
-    public List<BlogItem> query(String title){//查询就先这么写了
-        List<BlogItem> result= new ArrayList<>();
-        for (BlogItem item: allList){
-            if (item.getTitle().contains("title"))
+    public List<BlogItem> search(String title) {//查询就先这么写了
+        List<BlogItem> result = new ArrayList<>();
+        for (BlogItem item : allList) {
+            if ((item.getTitle().toUpperCase()).contains(title.toUpperCase()))//全部使用大写进行比较查询
                 result.add(item);
         }
+        if (allList.size() == 0)
+            LogUtil.i("allList", "0");
         return result;
     }
 
@@ -113,21 +115,19 @@ public class SearchBlog extends Activity {
 
                 JsoupUtil.getBlogItemList(Constants.DEF_ARTICLE_TYPE.HOME, html, new JsonCallBackListener() {
                     @Override
-                    public void onFinish(final List<BlogItem> list) {//子线程里
+                    public synchronized void onFinish(final List<BlogItem> list) {//子线程里
+
+                        /**
+                         * 在主页中加载超页之后，不再分页显示,分页的时候按照每页15条显示
+                         */
+                        LogUtil.i("加载的数量", list.size() + "");
+                        allList.addAll(list);
 
                         runOnUiThread(new Runnable() {
                             @Override
-                            public void run() {//主线程里
-                                if (list.size() == 0 || list.size() > 20) {//重复或者空列表，则停止加载
-                                    isFinish= true;
-                                }
-                                /**
-                                 * 在主页中加载超页之后，不再分页显示,分页的时候按照每页15条显示
-                                 */
-                                LogUtil.i("加载的数量", list.size() + "");
-                                if (list.size() <= 20) {
-                                    allList.addAll(list);
-                                }
+                            public void run() {
+                                adapter.setList(search(blogTitle));
+                                adapter.notifyDataSetChanged();
                             }
                         });
                     }
@@ -136,7 +136,8 @@ public class SearchBlog extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(SearchBlog.this, "网络信号不佳", Toast.LENGTH_SHORT).show();
+                volleyError.printStackTrace();
+                Toast.makeText(SearchActivity.this, "网络信号不佳", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });

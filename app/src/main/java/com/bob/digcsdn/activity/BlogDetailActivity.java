@@ -3,10 +3,12 @@ package com.bob.digcsdn.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -17,6 +19,7 @@ import com.bob.digcsdn.adapter.BlogDetailAdapter;
 import com.bob.digcsdn.bean.Blog;
 import com.bob.digcsdn.util.Constants;
 import com.bob.digcsdn.util.JsoupUtil;
+import com.bob.digcsdn.util.LogUtil;
 import com.bob.digcsdn.util.VolleyUtil;
 import com.bob.digcsdn.view.LoadMoreListView;
 
@@ -34,6 +37,8 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
     private Button reloadBtn;
 
     private View backBtn, commentBtn;//评论和回退按钮
+    private TextView titleTv;
+    private String blogTitle;
 
     public String url;
     private String fileName;
@@ -56,7 +61,7 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
         blogDetailAdapter = new BlogDetailAdapter(this);
         url = getIntent().getExtras().getString("blogLink");
         fileName = url.substring(url.lastIndexOf("/") + 1);//fileName表示的是博客链接中最后一个节点，即博客代号
-
+        blogTitle= getIntent().getExtras().getString("blogTitle");
     }
 
     //初始化控件
@@ -66,6 +71,10 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
         reloadView = findViewById(R.id.ll_article_reLoad);
         backBtn =  findViewById(R.id.img_article_detail_back);
         commentBtn = findViewById(R.id.img_comment);
+        titleTv= (TextView) findViewById(R.id.article_title);
+        titleTv.setVisibility(View.VISIBLE);
+        titleTv.setText(blogTitle);
+        LogUtil.i("title", titleTv.getText().toString());
         listView = (LoadMoreListView) findViewById(R.id.list_article_view);
         listView.setAdapter(blogDetailAdapter);
     }

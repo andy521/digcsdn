@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        Intent intent= new Intent(this, SearchBlog.class);
+        Intent intent= new Intent(this, SearchActivity.class);
         intent.putExtra("query", query);
         startActivity(intent);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_no);

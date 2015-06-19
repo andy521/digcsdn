@@ -63,6 +63,7 @@ public class UrlUtil {
                 break;
         }
         url = url + "/" + page;
+        LogUtil.i("url", url);
         return url;
     }
 
@@ -111,7 +112,8 @@ public class UrlUtil {
             default:
                 break;
         }
-        url = url + "/1";
+       // LogUtil.i("url", url);
+        //url = url + "/1";
         return url;
     }
 
