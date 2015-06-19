@@ -15,6 +15,10 @@ ps：对，我就是这么一个不安分，视知识如绳命的家伙！！！
 ![](https://github.com/Bob1993/ImageCache/blob/master/Images/16.png)
 ![](https://github.com/Bob1993/ImageCache/blob/master/Images/17.png)
 ![](https://github.com/Bob1993/ImageCache/blob/master/Images/18.png)
+![](https://github.com/Bob1993/ImageCache/blob/master/Images/19.png)
+![](https://github.com/Bob1993/ImageCache/blob/master/Images/20.png)
+![](https://github.com/Bob1993/ImageCache/blob/master/Images/21.png)
+![](https://github.com/Bob1993/ImageCache/blob/master/Images/22.png)
 
 ##About me
 I am a grade three student in USTL.<br>
