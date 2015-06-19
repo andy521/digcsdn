@@ -100,8 +100,8 @@ public class SearchActivity extends Activity {
             if ((item.getTitle().toUpperCase()).contains(title.toUpperCase()))//全部使用大写进行比较查询
                 result.add(item);
         }
-        if (allList.size() == 0)
-            LogUtil.i("allList", "0");
+        if (result.size() == 0)
+            Toast.makeText(this, "无内容", Toast.LENGTH_SHORT).show();
         return result;
     }
 

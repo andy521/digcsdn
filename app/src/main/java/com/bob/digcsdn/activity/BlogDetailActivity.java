@@ -62,6 +62,8 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
         url = getIntent().getExtras().getString("blogLink");
         fileName = url.substring(url.lastIndexOf("/") + 1);//fileName表示的是博客链接中最后一个节点，即博客代号
         blogTitle= getIntent().getExtras().getString("blogTitle");
+        if (blogTitle.length()> 7)
+            blogTitle= blogTitle.substring(0,7)+"...";
     }
 
     //初始化控件
@@ -75,6 +77,7 @@ public class BlogDetailActivity extends Activity implements View.OnClickListener
         titleTv.setVisibility(View.VISIBLE);
         titleTv.setText(blogTitle);
         LogUtil.i("title", titleTv.getText().toString());
+
         listView = (LoadMoreListView) findViewById(R.id.list_article_view);
         listView.setAdapter(blogDetailAdapter);
     }
