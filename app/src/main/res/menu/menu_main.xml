@@ -14,16 +14,11 @@
         android:title="search" />
 
     <item
-        android:id="@+id/add_files"
+        android:id="@+id/share"
         android:orderInCategory="100"
-        android:title="op1"
+        android:title="把App分享给朋友们"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/add_task"
-        android:orderInCategory="100"
-        android:title="op2"
-        app:showAsAction="never"/>
 
     <!--ifRoom表示当actionbar有空间时显示，否则隐藏在最右侧的overFlow中-->
 
