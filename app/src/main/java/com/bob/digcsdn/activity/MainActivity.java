@@ -1,6 +1,8 @@
 package com.bob.digcsdn.activity;
 
+import android.app.Notification;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -137,9 +139,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override//toolBar里的条目监听，里面的条目可以按照menu来处理
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.share:
-                Toast.makeText(MainActivity.this, "add_files", Toast.LENGTH_SHORT).show();
-
+            case R.id.share: {
+                Intent intent= new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Bob开发，专属精品：http://www.wandoujia.com/apps/com.bob.digcsdn");
+                startActivity(Intent.createChooser(intent, "分享到"));
+            }
         }
         return super.onOptionsItemSelected(item);
     }
