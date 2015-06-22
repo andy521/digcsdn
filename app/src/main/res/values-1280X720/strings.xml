@@ -8,10 +8,6 @@
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
 
-    <string name="add">新增</string>
-    <string name="ferry">摆渡</string>
-    <string name="mine">我的</string>
-
     <string name="task_id">序号</string>
     <string name="task_name">任务名称</string>
     <string name="task_desc">任务描述</string>

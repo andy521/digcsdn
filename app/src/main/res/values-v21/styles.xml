@@ -4,7 +4,7 @@
         <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar"><!--Light.DarkActionBar表示默认的黑色主体的Actionbar-->
                 <!-- Customize your theme here. -->
                 <item name="colorPrimary">@color/sky_blue</item>
-                <item name="colorPrimaryDark">@color/deep_blue</item>
+                <item name="colorPrimaryDark">@color/sky_blue</item>
                 <item name="colorAccent">@color/material_deep_teal_200</item>
                 <item name="android:textColorPrimary">@color/white</item>
         </style>
