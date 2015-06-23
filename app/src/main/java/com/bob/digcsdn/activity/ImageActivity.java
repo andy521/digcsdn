@@ -35,7 +35,7 @@ public class ImageActivity extends AppCompatActivity {
 
         //listener需要通过imageLoader获取
         ImageLoading imageLoading = ImageLoading.getInstance(ImageActivity.this);
-        boolean result = imageLoading.loadImage(url, imageView, R.mipmap.ic_default, R.mipmap.ic_default);
+        boolean result = imageLoading.loadImage(url, imageView, R.drawable.ic_default, R.drawable.ic_default);
         if (result)
             progressBar.setVisibility(View.GONE);
         else Toast.makeText(ImageActivity.this, "网络信号不佳", Toast.LENGTH_SHORT).show();

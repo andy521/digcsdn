@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:drawableLeft="@mipmap/material_go_normal"
+        android:drawableLeft="@drawable/material_go_normal"
         android:gravity="center_vertical"
         android:text="回复:"
         android:textColor="@color/gray" />

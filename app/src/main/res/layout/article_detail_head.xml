@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:src="@mipmap/vertical_divider_line" />
+            android:src="@drawable/vertical_divider_line" />
 
     </LinearLayout>
 

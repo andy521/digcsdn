@@ -101,7 +101,7 @@ public class CommentAdapter extends BaseAdapter {
                     holder.name.setText(item.getUsername());
                     holder.content.setText(Html.fromHtml(item.getContent()));//使用formHtml格式化文本内容
                     holder.date.setText(item.getPostTime());
-                    imageLoader.loadImage(item.getUserface(), holder.userFace, R.mipmap.csdn, R.mipmap.ic_default);// 显示头像
+                    imageLoader.loadImage(item.getUserface(), holder.userFace, R.drawable.csdn, R.drawable.ic_default);// 显示头像
                     break;
                 case Constants.DEF_COMMENT_TYPE.CHILD://评论不显示头像
                     holder.name.setText(item.getUsername());

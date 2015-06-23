@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             case R.id.share: {
                 Intent intent= new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Bob开发，专属精品：http://www.wandoujia.com/apps/com.bob.digcsdn");
+                intent.putExtra(Intent.EXTRA_TEXT, "Bob开发，必属精品：http://blog.csdn.net/bob1993_dev/article/details/46609897");
                 startActivity(Intent.createChooser(intent, "分享到"));
             }
         }

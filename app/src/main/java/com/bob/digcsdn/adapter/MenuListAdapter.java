@@ -15,8 +15,8 @@ import com.bob.digcsdn.R;
  */
 public class MenuListAdapter extends BaseAdapter {
     private String[] titles = {"个人设置", "切换用户", "检查更新", "关于"};
-    private int[] icons = {R.mipmap.settings, R.mipmap.changeuser,
-            R.mipmap.update, R.mipmap.about};
+    private int[] icons = {R.drawable.settings, R.drawable.changeuser,
+            R.drawable.update, R.drawable.about};
     private Context context;
 
     public MenuListAdapter(Context context){

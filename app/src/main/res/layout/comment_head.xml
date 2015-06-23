@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:src="@mipmap/vertical_divider_line" />
+            android:src="@drawable/vertical_divider_line" />
 
     </LinearLayout>
     <TextView
@@ -43,7 +43,7 @@
         android:textColor="@color/white"
         android:layout_gravity="center_vertical"
 
-        android:background="@mipmap/bg_comment" />
+        android:background="@drawable/bg_comment" />
 
 
 </LinearLayout>

@@ -139,7 +139,7 @@ public class BlogDetailAdapter extends BaseAdapter {
         if (null != item) {
             switch (item.getState()) {
                 case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 图片，异步加载
-                    imageLoader.loadImage(item.getImgLink(), holder.image, R.mipmap.ic_default, R.mipmap.ic_default);
+                    imageLoader.loadImage(item.getImgLink(), holder.image, R.drawable.ic_default, R.drawable.ic_default);
                     break;
                 case Constants.DEF_BLOG_ITEM_TYPE.CODE: // 代码，格式显示
 
