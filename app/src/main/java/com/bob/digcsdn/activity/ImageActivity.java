@@ -1,7 +1,5 @@
 package com.bob.digcsdn.activity;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -9,14 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.bob.digcsdn.R;
 import com.bob.digcsdn.util.FileUtil;
 import com.bob.digcsdn.util.ImageLoading;
-import com.polites.android.GestureImageView;
 
 /**
  * 一个单纯的用于显示图片的活动，可以下载，当然啦，是黑色背景
@@ -34,7 +29,7 @@ public class ImageActivity extends AppCompatActivity {
         init();
 
         //listener需要通过imageLoader获取
-        ImageLoading imageLoading = ImageLoading.getInstance(ImageActivity.this);
+        ImageLoading imageLoading = ImageLoading.getInstance();
         boolean result = imageLoading.loadImage(url, imageView, R.drawable.ic_default, R.drawable.ic_default);
         if (result)
             progressBar.setVisibility(View.GONE);

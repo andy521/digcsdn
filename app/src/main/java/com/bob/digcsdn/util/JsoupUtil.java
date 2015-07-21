@@ -20,10 +20,8 @@ import com.bob.digcsdn.interfaces.JsonCallBackListener;
  *csdn的博客样式都是多页显示，所以就有了我们的Page类
  *Created by bob on 15-6-13.
  */
-public class JsoupUtil {
-	public static boolean contentFirstPage = true; // 第一页
+public class JsoupUtil {//jsoup解析html还需要好好研究研究
 	public static boolean contentLastPage = true; // 最后一页
-	public static boolean multiPages = false; // 多页
 	private static final String BLOG_URL = "http://blog.csdn.net"; // CSDN博客地址
 
 	// 链接样式文件，代码块高亮的处理,搞不懂，也就是根据字符串里的部分分析代码部分
@@ -34,11 +32,6 @@ public class JsoupUtil {
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shCore.css\">"
 			+ "<script type=\"text/javascript\">SyntaxHighlighter.all();</script>";
 
-	public static void resetPages() {
-		contentFirstPage = true;
-		contentLastPage = true;
-		multiPages = false;
-	}
 
 	/**
 	 * 使用Jsoup解析博客摘要视图列表
@@ -232,10 +225,10 @@ public class JsoupUtil {
 		List<Comment> list = new ArrayList<>();
 		LogUtil.i("jsonString", json);
 		try {
-			// 创建一个json数组
+			// 创建一个JSONObject对象
 			JSONObject jsonObject= new JSONObject(json);
 			LogUtil.i("jsonObject", jsonObject.toString());
-			JSONArray jsonArray = jsonObject.getJSONArray("list"); // 获取json数组
+			JSONArray jsonArray = jsonObject.getJSONArray("list"); // 获取list头的json数组
 			LogUtil.i("jsonArray", jsonArray.toString());
 			int index = 0;
 			int len = jsonArray.length();
@@ -253,7 +246,7 @@ public class JsoupUtil {
 				len = pageIndex * pageSize;
 			}
 
-			for (int i = len-1; i >= index; i--) {//遍历JsonObject里的{}
+			for (int i = len-1; i >= index; i--) {//遍历JsonObject里的{}obj对象，倒序可以让显示的时候正序
 
 				JSONObject item = jsonArray.getJSONObject(i);
 				String commentId = item.getString("CommentId");//评论id

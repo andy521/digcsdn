@@ -1,6 +1,5 @@
 package com.bob.digcsdn.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 import android.widget.ImageView;
@@ -21,7 +20,7 @@ public class ImageLoading {
         this.imageLoader= imageLoader;
     }
 
-    public synchronized static ImageLoading getInstance(Context context){
+    public synchronized static ImageLoading getInstance(){
         if (imageLoading == null) {
             imageLoading = new ImageLoading(new ImageLoader(VolleyUtil.getQueue(), new ImageCache() {
 

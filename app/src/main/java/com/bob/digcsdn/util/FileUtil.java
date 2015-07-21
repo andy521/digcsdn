@@ -25,7 +25,7 @@ public class FileUtil {
     }
 
     /**
-     * 写入sd卡对应的目录中
+     * 将普通的文件内容写入sd卡对应的目录中
      */
 
     public static void write2SdCard(InputStream input, String fileName) {
@@ -61,7 +61,7 @@ public class FileUtil {
      */
     public static boolean write2SdCard(Bitmap bmp, String url) {
         try {
-            File file = new File(filePath);
+            File file = new File(filePath);//获取存储目录
             if (!file.exists()) {
                 file.mkdirs();
             }

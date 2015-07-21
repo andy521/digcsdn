@@ -44,7 +44,7 @@ public class BlogService {//存的时候不要存入id，获取时需要取出id
     public synchronized void insert(List<BlogItem> list){
         db= helper.getWritableDatabase();
         values.clear();//清空values
-
+        
         if (list== null){
             LogUtil.i("service", "empty");
         }

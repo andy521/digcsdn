@@ -93,7 +93,7 @@ public class BlogListAdapter extends BaseAdapter {
             holder.content.setText(item.getContent());
             holder.date.setText(item.getDate());
             if (item.getImgLink()!= null){
-                ImageLoading.getInstance(context).loadImage(item.getImgLink(),
+                ImageLoading.getInstance().loadImage(item.getImgLink(),
                         holder.blogImg, R.drawable.csdn, R.drawable.csdn);
             }
         }

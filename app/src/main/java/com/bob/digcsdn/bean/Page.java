@@ -1,12 +1,10 @@
 package com.bob.digcsdn.bean;
 
 /**
- * 页面实体类，神马鬼？？？
+ * 页面实体类，神马鬼？？？，用来记录当前申请url的页数，当然啦，前提是当前网页是分页式显示，比如列表和评论页
  */
 public class Page {
     private int page = 1; // 记录页面数
-
-    public boolean contentFirstPage = true; // 是否为内容第一页
 
     // 设置开始页面
     public void setPageStart() {//默认从第二页开始

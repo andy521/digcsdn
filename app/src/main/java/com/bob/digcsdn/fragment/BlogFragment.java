@@ -145,7 +145,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                 JsoupUtil.getBlogItemList(blogType, html, new JsonCallBackListener() {
                     @Override
-                    public void onFinish(final List<BlogItem> list) {//子线程里
+                    public void onFinish(final List<BlogItem> list) {//子线程里，就这样把部分操作放到子线程里？？？
                         if (taskType == Constants.DEF_TASK_TYPE.REFRESH) {
                             /**
                              * 既然放到子线程里了，就应该注意线程同步安全的问题
@@ -157,7 +157,7 @@ public class BlogFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
-                            public void run() {//主线程里
+                            public void run() {//主线程里，也可以使用handler的post方法来切换到主线程中作业
                                 if (list.size() == 0 || list.size() > 20) {//重复或者空列表，则停止加载
                                     blogListView.setCanLoadMore(false);//停止加载
                                     list.clear();

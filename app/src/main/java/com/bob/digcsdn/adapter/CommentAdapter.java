@@ -32,7 +32,7 @@ public class CommentAdapter extends BaseAdapter {
         super();
         layoutInflater= layoutInflater.from(context);
         list= new ArrayList<>();
-        imageLoader= ImageLoading.getInstance(context);
+        imageLoader= ImageLoading.getInstance();
     }
     public void setList(List<Comment> list) {
         this.list = list;

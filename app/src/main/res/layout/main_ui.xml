@@ -5,14 +5,7 @@
     android:orientation="vertical">
 
     <!--popupTheme表示的是overflow的主体背景-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"></android.support.v7.widget.Toolbar>
-    <!--这个LinearLayout是用来存放tabs的,?attr表示对所有资源文件进行搜索引用-->
+
 
 
     <com.viewpagerindicator.TabPageIndicator

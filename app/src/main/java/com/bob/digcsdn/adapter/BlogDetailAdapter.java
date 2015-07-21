@@ -32,7 +32,6 @@ public class BlogDetailAdapter extends BaseAdapter {
     private Context context;
     private List<Blog> list;
 
-    private SpannableStringBuilder htmlSpannable;
     private ImageLoading imageLoader;
 
     public BlogDetailAdapter(Context context) {
@@ -40,7 +39,7 @@ public class BlogDetailAdapter extends BaseAdapter {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         list = new ArrayList<>();
-        imageLoader = ImageLoading.getInstance(context);
+        imageLoader = ImageLoading.getInstance();
     }
 
     public void setList(List<Blog> list) {
@@ -203,7 +202,7 @@ public class BlogDetailAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        TextView id;//暂时无用
+        TextView id;//暂时无用，需要的话，可以看情况加上
         TextView date;
         TextView title;
         TextView content;
