@@ -20,8 +20,17 @@ ps：对，我就是这么一个不安分，视知识如绳命的家伙！！！
 ![](https://github.com/Bob1993/ImageCache/blob/master/Images/21.png)
 ![](https://github.com/Bob1993/ImageCache/blob/master/Images/22.png)
 
+
+
+
+## 稀土归来，开启重构之路
+预计耗时：一周  
+时间周期：12.10-12.17
+
 ##About me
 I am a grade three student in USTL.<br>
  I'm willing to solve the problem with java,Cplus,C. I fell in love with android last year and I will devote myself to android when I graduate from school. If you have an internship for android,please contact me .<br>
 
-[My blog](http://blog.csdn.net/bob1993_Dev)
+[My blog](http://lovinghuan.com)  
+[GitHub](https://github.com/Bob1993)  
+[My JianShu](http://www.jianshu.com/users/5f2821bda896/latest_articles)
