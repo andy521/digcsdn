@@ -2,6 +2,7 @@ package com.bob.digcsdn.activity;
 
 import android.content.Intent;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bob.digcsdn.R;
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
 
         initWidget();//集中实例化这几个控件
         initEvent();
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private void initWidget() {
         leftMenuFragment = new LeftMenuFragment();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);//初始化抽屉布局
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);//初始化toolBar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);//初始化toolBar
         mToolbar.setTitle(R.string.username);
         setSupportActionBar(mToolbar);
         /**

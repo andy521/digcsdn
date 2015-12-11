@@ -12,7 +12,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:paddingTop="@dimen/drawer_padding_top"
         >
 
         <!--自定义的圆形ImageView,如果图片为透明色，可以有更简单的处理方式-->
