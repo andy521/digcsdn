@@ -3,14 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/back_head"></include>
-    </RelativeLayout>
-
     <ListView
         android:id="@+id/list_search_view"
         android:layout_width="match_parent"

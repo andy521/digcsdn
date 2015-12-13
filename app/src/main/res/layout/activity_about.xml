@@ -5,7 +5,18 @@
     android:background="@android:color/white"
     android:layout_height="match_parent">
 
-    <include layout="@layout/back_head"></include>
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/toolbar_padding_top"
+        android:minHeight= "?attr/actionBarSize"
+        android:background="@color/theme_color"
+        app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        />
+
     <ImageView
         android:id="@+id/about_head"
         android:layout_marginTop="50dp"

@@ -1,6 +1,6 @@
 package com.bob.digcsdn.interfaces;
 
-import com.bob.digcsdn.bean.BlogItem;
+import com.bob.digcsdn.models.BlogItem;
 
 import java.util.List;
 

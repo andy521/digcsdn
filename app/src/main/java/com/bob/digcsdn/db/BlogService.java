@@ -5,10 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.bob.digcsdn.bean.Blog;
-import com.bob.digcsdn.bean.BlogItem;
-import com.bob.digcsdn.fragment.BlogFragment;
-import com.bob.digcsdn.util.LogUtil;
+import com.bob.digcsdn.models.BlogItem;
+import com.bob.digcsdn.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
