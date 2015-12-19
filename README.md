@@ -27,6 +27,12 @@ ps：对，我就是这么一个不安分，视知识如绳命的家伙！！！
 预计耗时：一周
 时间周期：12.10-12.17
 
+### 重构告一段落
+> 本次的重构，也算是小打小闹吧....本想着来次大换血，模仿掘金的框架自己也搭建出来一个  
+后来发现，整个体系实在是太大了。如果需要模仿，还得要仔细对整个app进行一个系统的分析  
+和学习才可以。整个体系架构大概就是三个部分，也就是老生常谈的MVC架构里的model，view和controller  
+*大家别期望我会开源出来掘金的核心框架部分，因为这是秘密*
+
 ##About me
 I am a grade three student in USTL.<br>
  I'm willing to solve the problem with java,Cplus,C. I fell in love with android last year and I will devote myself to android when I graduate from school. If you have an internship for android,please contact me .<br>
