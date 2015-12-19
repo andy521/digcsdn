@@ -19,19 +19,19 @@ import android.widget.Toast;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bob.digcsdn.adapters.TabPagerAdapter;
 import com.bob.digcsdn.fragments.LeftMenuFragment;
-import com.viewpagerindicator.TabPageIndicator;
+import com.bob.digcsdn.utils.helpers.PagerSlidingTabStripEx;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener{
+public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener{
     //这里不可以直接引用xml里的颜色值，而需要根据RGB或者ARGB多个参数来构造
 
     private static boolean isExit = false;
     Timer tExit = null;
     private ViewPager pager;//v4包下的一个控件，即就是一个可以左右滑动切换的东东
     private TabPagerAdapter tabAdapter;//和ListView一个道理，集合——>适配器——>控件
-    private PagerSlidingTabStrip mTabs;
+    private PagerSlidingTabStripEx mTabs;
 
     private DrawerLayout drawerLayout;
     private LeftMenuFragment leftMenuFragment;
@@ -61,8 +61,8 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         pager.setOffscreenPageLimit(0);//设置预加载页数,第一次进入程序起作用，因为都是从网络上获取数据，因此预加载意义不大
         //当然就缓存一页，因为每次的加载都需要保证列表是最新的
         pager.setAdapter(tabAdapter);
-
         mTabs.setViewPager(pager);
+        mTabs.correctColor(0);
     }
 
     private void initWidget() {
@@ -77,8 +77,10 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         mToggle = new ActionBarDrawerToggle(this,
                 drawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
 
-
-        mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mTabs = (PagerSlidingTabStripEx) findViewById(R.id.tabs);
+        mTabs.setSelectedColor("#ffffff");
+        mTabs.setUnSelectedColor("#eeeeee");
+        mTabs.setOnPageChangeListener(this);
         pager = (ViewPager) findViewById(R.id.pager);
         tabAdapter = new TabPagerAdapter(getSupportFragmentManager());
 
@@ -164,6 +166,27 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mTabs.correctColor(position);
+        if (pager != null && pager.getAdapter() != null) {
+            if (mToolbar != null) {
+                mToolbar.setTitle(pager.getAdapter().getPageTitle(position));
+            }
+        }
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
 
