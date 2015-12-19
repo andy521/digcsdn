@@ -30,7 +30,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return TITLE[position % TITLE.length].toUpperCase();
+        return TITLE[position];
     }
 
     @Override

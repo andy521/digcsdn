@@ -8,7 +8,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,6 +16,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.bob.digcsdn.adapters.TabPagerAdapter;
 import com.bob.digcsdn.fragments.LeftMenuFragment;
 import com.viewpagerindicator.TabPageIndicator;
@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
     Timer tExit = null;
     private ViewPager pager;//v4包下的一个控件，即就是一个可以左右滑动切换的东东
     private TabPagerAdapter tabAdapter;//和ListView一个道理，集合——>适配器——>控件
-    private TabPageIndicator indicator;
+    private PagerSlidingTabStrip mTabs;
 
     private DrawerLayout drawerLayout;
     private LeftMenuFragment leftMenuFragment;
@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         //当然就缓存一页，因为每次的加载都需要保证列表是最新的
         pager.setAdapter(tabAdapter);
 
-        indicator.setViewPager(pager);
+        mTabs.setViewPager(pager);
     }
 
     private void initWidget() {
@@ -78,8 +78,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
                 drawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
 
 
-        indicator = (TabPageIndicator) findViewById(R.id.indicator);
-
+        mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pager = (ViewPager) findViewById(R.id.pager);
         tabAdapter = new TabPagerAdapter(getSupportFragmentManager());
 

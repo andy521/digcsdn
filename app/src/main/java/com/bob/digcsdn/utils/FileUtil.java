@@ -112,11 +112,11 @@ public class FileUtil {
             // 把数据从文件中读入内存
             InputStream is = context.getResources().getAssets().open(fileName);
             ByteArrayOutputStream bs = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[1024];//1k的缓冲区长度
             int i = is.read(buffer, 0, buffer.length);
             while (i > 0) {
-                bs.write(buffer, 0, i);
-                i = is.read(buffer, 0, buffer.length);
+                bs.write(buffer, 0, i);//从0到i，从buffer写入bs中
+                i = is.read(buffer, 0, buffer.length);//按照1k的长度将数据读入buffer中。返回真实读取的字节数
             }
             content = new String(bs.toByteArray(), Charset.forName("utf-8"));
         } catch (Exception e) {

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import android.os.Handler;
+
 public class LogoActivity extends Activity {
     private ImageView img_logo;
 
@@ -35,9 +37,16 @@ public class LogoActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                Intent intent = new Intent(LogoActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(LogoActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+                        finish();
+                    }
+                }, 300);
+
             }
 
             @Override

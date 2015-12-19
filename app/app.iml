@@ -68,6 +68,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
@@ -81,10 +83,12 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="pagerslidingtabstrip-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="gesture-imageview" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.8.2" level="project" />
     <orderEntry type="library" exported="" name="volley" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
     <orderEntry type="module" module-name="indicator_library" exported="" />
   </component>
 </module>

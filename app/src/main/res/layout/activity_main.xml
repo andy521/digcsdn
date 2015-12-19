@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-        <include layout="@layout/main_ui"></include>
+        <include layout="@layout/main_ui"/>
         <!--主布局，必须是填充父窗体-->
 
         <!--侧边栏布局,直接在这儿设置菜单宽度即可-->
