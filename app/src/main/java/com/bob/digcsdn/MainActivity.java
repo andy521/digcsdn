@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.bob.digcsdn.adapters.TabPagerAdapter;
 import com.bob.digcsdn.fragments.LeftMenuFragment;
 import com.bob.digcsdn.utils.helpers.PagerSlidingTabStripEx;
